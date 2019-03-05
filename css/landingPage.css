@@ -15,24 +15,24 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-body .logo-container {
+body .logo-container-lp {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-body .logo-container .logo-img {
+body .logo-container-lp .logo-img-lp {
   width: 30vw;
 }
 
-body .logo-container .logo-text {
+body .logo-container-lp .logo-text-lp {
   font-size: 12vw;
   color: #000000;
   font-family: 'Roboto', sans-serif;
   margin: 3vw;
 }
 
-body .btn-start {
+body .btn-start-lp {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,16 +50,16 @@ body .btn-start {
   transition: box-shadow 0.2s linear;
 }
 
-body .btn-start .right-arrow {
+body .btn-start-lp .right-arrow-lp {
   width: 5vw;
   margin: 0 0 0 2vw;
 }
 
-body .btn-start:focus {
+body .btn-start-lp:focus {
   outline: 0;
   box-shadow: 2px 2px #87d8f3;
 }
 
-body .btn-start:hover {
+body .btn-start-lp:hover {
   opacity: 0.7;
 }

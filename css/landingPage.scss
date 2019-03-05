@@ -25,20 +25,20 @@ body {
     flex-direction:column;
     font-family: 'Open Sans', sans-serif;
 
-    .logo-container {
+    .logo-container-lp {
         @include flexible();
 
-        .logo-img {
+        .logo-img-lp {
             width:30vw;
          }
-        .logo-text {
+        .logo-text-lp {
             font-size:12vw;
             color: $black;
             font-family:'Roboto', sans-serif;
             margin:3vw;
         }
     }
-    .btn-start {
+    .btn-start-lp {
         @include flexible;
         border:none;
         background-color:$blue;
@@ -55,7 +55,7 @@ body {
         transition: opacity 0.1s linear;
         transition: box-shadow 0.2s linear;
 
-        .right-arrow {
+        .right-arrow-lp {
             width: 5vw; 
             margin: 0 0 0 2vw;           
         }
