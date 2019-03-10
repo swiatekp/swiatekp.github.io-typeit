@@ -79,13 +79,13 @@ body header .hamburger-btn {
 body header .hamburger-btn:focus {
   outline: 0;
   opacity: 0.5;
-  transform: rotate(45deg);
+  transform: rotate(45deg) scale(1.1, 1.1);
 }
 
 body header .hamburger-btn:hover {
   opacity: 0.5;
   opacity: 0.5;
-  transform: rotate(45deg);
+  transform: rotate(45deg) scale(1.1, 1.1);
 }
 
 body main {

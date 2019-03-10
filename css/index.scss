@@ -71,7 +71,7 @@ body {
             transition:transform 0.3s ease-in;
             @mixin hamburger-animation() {
                 opacity:0.5;
-                transform:rotate(45deg);
+                transform:rotate(45deg) scale(1.1, 1.1);
             }
             &:focus {
                 outline:0;
