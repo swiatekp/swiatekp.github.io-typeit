@@ -47,6 +47,7 @@ body {
                 color: $black;
                 font-family:'Roboto', sans-serif;
                 margin:0 0 0 15px;
+                cursor:default;
             }
             @media(max-width:500px) {
                 .logo-text {
