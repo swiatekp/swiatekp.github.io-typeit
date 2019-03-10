@@ -31,55 +31,56 @@ body {
         @include flexible();
         justify-content:flex-start;
         padding: 1vw 3vw 1vw 3vw;
-    }
-    .logo-container {
-        @include flexible();
-        .logo-img {
-            width:140px;
-         }
-         @media(max-width:500px) {
+        flex-grow:1;
+        .logo-container {
+            @include flexible();
             .logo-img {
-                width:70px;
+                width:140px;
             }
-        }
-        .logo-text {
-            font-size:62px;
-            color: $black;
-            font-family:'Roboto', sans-serif;
-            margin:0 0 0 15px;
-        }
-        @media(max-width:500px) {
+            @media(max-width:500px) {
+                .logo-img {
+                    width:100px;
+                }
+            }
             .logo-text {
-                font-size:31px;
-                margin:0 0 0 7px;
+                font-size:62px;
+                color: $black;
+                font-family:'Roboto', sans-serif;
+                margin:0 0 0 15px;
+            }
+            @media(max-width:500px) {
+                .logo-text {
+                    font-size:41px;
+                    margin:0 0 0 7px;
+                }
             }
         }
-    }
-    .hamburger-btn {
-        margin-left:auto;
-        width:65px;
-        height:65px;
-        @media(max-width:500px) {
-            width:32px;
-            height:32px;
-        }
-        border:none;
-        background-color:transparent;
-        background-image:url('../img/hamburger.svg');
-        background-size:cover;
-        background-position:center;
-        transition:transform 0.3s ease-in;
-        @mixin hamburger-animation() {
-            opacity:0.5;
-            transform:rotate(45deg);
-        }
-        &:focus {
-            outline:0;
-            @include hamburger-animation();
-        }
-        &:hover {
-            opacity:0.5;
-            @include hamburger-animation();
+        .hamburger-btn {
+            margin-left:auto;
+            width:65px;
+            height:65px;
+            @media(max-width:500px) {
+                width:42px;
+                height:42px;
+            }
+            border:none;
+            background-color:transparent;
+            background-image:url('../img/hamburger.svg');
+            background-size:cover;
+            background-position:center;
+            transition:transform 0.3s ease-in;
+            @mixin hamburger-animation() {
+                opacity:0.5;
+                transform:rotate(45deg);
+            }
+            &:focus {
+                outline:0;
+                @include hamburger-animation();
+            }
+            &:hover {
+                opacity:0.5;
+                @include hamburger-animation();
+            }
         }
     }
     main {
@@ -87,6 +88,7 @@ body {
         padding:5vw 3vw 5vw 3vw;
         @media(max-width:550px) {
             padding: 15vw 3vw 15vw 3vw;
+            justify-content:space-around;
         }
         background-color:$white-main;
         border-top: 4px solid $grey-main-border;
@@ -101,6 +103,7 @@ body {
         @include flexible();
         justify-content:space-between;
         flex-wrap:wrap;
+        flex-grow:3;
         .container-1 {
             background-color:$white-pure;
             align-self:stretch;
@@ -123,6 +126,7 @@ body {
                 margin: 20px 0 0 0;
             }
             align-self:stretch;
+            justify-self:stretch;
             @include flexible();    
             .btn-start {
                 @include flexible;

@@ -24,25 +24,26 @@ body header {
   align-items: center;
   justify-content: flex-start;
   padding: 1vw 3vw 1vw 3vw;
+  flex-grow: 1;
 }
 
-body .logo-container {
+body header .logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-body .logo-container .logo-img {
+body header .logo-container .logo-img {
   width: 140px;
 }
 
 @media (max-width: 500px) {
-  body .logo-container .logo-img {
-    width: 70px;
+  body header .logo-container .logo-img {
+    width: 100px;
   }
 }
 
-body .logo-container .logo-text {
+body header .logo-container .logo-text {
   font-size: 62px;
   color: #000000;
   font-family: 'Roboto', sans-serif;
@@ -50,13 +51,13 @@ body .logo-container .logo-text {
 }
 
 @media (max-width: 500px) {
-  body .logo-container .logo-text {
-    font-size: 31px;
+  body header .logo-container .logo-text {
+    font-size: 41px;
     margin: 0 0 0 7px;
   }
 }
 
-body .hamburger-btn {
+body header .hamburger-btn {
   margin-left: auto;
   width: 65px;
   height: 65px;
@@ -69,19 +70,19 @@ body .hamburger-btn {
 }
 
 @media (max-width: 500px) {
-  body .hamburger-btn {
-    width: 32px;
-    height: 32px;
+  body header .hamburger-btn {
+    width: 42px;
+    height: 42px;
   }
 }
 
-body .hamburger-btn:focus {
+body header .hamburger-btn:focus {
   outline: 0;
   opacity: 0.5;
   transform: rotate(45deg);
 }
 
-body .hamburger-btn:hover {
+body header .hamburger-btn:hover {
   opacity: 0.5;
   opacity: 0.5;
   transform: rotate(45deg);
@@ -99,11 +100,13 @@ body main {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  flex-grow: 3;
 }
 
 @media (max-width: 550px) {
   body main {
     padding: 15vw 3vw 15vw 3vw;
+    justify-content: space-around;
   }
 }
 
@@ -144,6 +147,7 @@ body main .container-1 p {
 body main .container-2 {
   width: 50%;
   align-self: stretch;
+  justify-self: stretch;
   display: flex;
   justify-content: center;
   align-items: center;
