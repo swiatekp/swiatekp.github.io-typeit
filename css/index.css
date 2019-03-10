@@ -176,6 +176,7 @@ body main .container-2 .btn-start {
   font-weight: bold;
   transition: opacity 0.1s linear;
   transition: box-shadow 0.2s linear;
+  transition: transform 0.2s linear;
 }
 
 @media (max-width: 760px) {
@@ -205,6 +206,7 @@ body main .container-2 .btn-start:focus {
 
 body main .container-2 .btn-start:hover {
   opacity: 0.7;
+  transform: scale(1.1, 1.1);
 }
 
 body footer {
