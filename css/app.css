@@ -133,8 +133,9 @@ body main .container-1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
   border-radius: 6px;
   padding: 2vw 3vw 2vw 3vw;
 }
@@ -239,6 +240,49 @@ body main .container-1 .result .result-symbols object {
 body main .container-1 .result .result-cup {
   width: 40px;
   margin: 0 10px 0 0;
+}
+
+body main .container-1 .steering {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+body main .container-1 .steering button {
+  width: 100px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9E9797;
+  border: 0;
+  border-radius: 30px;
+}
+
+body main .container-1 .steering button:focus {
+  outline: 0;
+}
+
+body main .container-1 .steering .active {
+  background-color: #0DACDF;
+  transition: background-color 0.2s linear;
+  transition: transform 0.2 linear;
+}
+
+body main .container-1 .steering .active:focus {
+  background-color: #057397;
+}
+
+body main .container-1 .steering .active:hover {
+  background-color: #057397;
+  transform: scale(1.1, 1);
+}
+
+body main .container-1 .steering object {
+  width: 40px;
+  height: 40px;
 }
 
 body main .container-1:first-child {

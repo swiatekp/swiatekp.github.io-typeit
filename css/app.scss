@@ -121,8 +121,9 @@ body {
                 min-width:300px;
             }
             @include flexible();
-            align-items:flex-start;
-            justify-content:center;
+            align-items:center;
+            justify-content:flex-start;
+            flex-direction:column;
             border-radius:6px;
             padding: 2vw 3vw 2vw 3vw;
             p {
@@ -191,6 +192,38 @@ body {
                 .result-cup {
                     width:40px;
                     margin:0 10px 0 0;
+                }
+            }
+            .steering {
+                width:80%;
+                @include flexible();
+                justify-content:space-around;
+                button {
+                    width: 100px;
+                    height: 65px;
+                    @include flexible();
+                    background-color:$grey-text;
+                    border:0;
+                    border-radius:30px;
+                    &:focus {
+                        outline:0;
+                    }
+                }
+                .active {
+                    background-color:$blue;
+                    transition: background-color 0.2s linear;
+                    transition: transform 0.2 linear;
+                    &:focus {
+                        background-color:$blue-onfocus;
+                    }
+                    &:hover {
+                        background-color:$blue-onfocus;
+                        transform:scale(1.1, 1);
+                    }
+                }
+                object {
+                    width:40px;
+                    height:40px;
                 }
             }
         }
