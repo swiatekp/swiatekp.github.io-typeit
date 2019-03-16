@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*Colors*/
 * {
   margin: 0;
@@ -134,7 +135,7 @@ body main .container-1 {
   justify-content: center;
   align-items: center;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   border-radius: 6px;
   padding: 2vw 3vw 2vw 3vw;
@@ -295,23 +296,20 @@ body main .container-1:first-child {
   }
 }
 
-body main .container-2 {
-  width: 48%;
-  align-self: stretch;
-  justify-self: stretch;
+body footer {
+  width: 100%;
+  height: 35px;
+  background-color: #0DACDF;
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-self: end;
+  color: #FFFFFF;
+  font-size: 14px;
 }
 
-@media (max-width: 550px) {
-  body main .container-2 {
-    width: 100%;
-    margin: 20px 0 0 0;
-  }
-}
-
-body main .container-2 .btn-start {
+.btn-start {
+  justify-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,7 +329,7 @@ body main .container-2 .btn-start {
 }
 
 @media (max-width: 760px) {
-  body main .container-2 .btn-start {
+  .btn-start {
     width: 300px;
     height: 100px;
     border-radius: 40px;
@@ -339,36 +337,77 @@ body main .container-2 .btn-start {
   }
 }
 
-body main .container-2 .btn-start .right-arrow-lp {
+.btn-start .right-arrow-lp {
   width: 90px;
   margin: 0 0 0 20px;
 }
 
 @media (max-width: 760px) {
-  body main .container-2 .btn-start .right-arrow-lp {
+  .btn-start .right-arrow-lp {
     width: 70px;
   }
 }
 
-body main .container-2 .btn-start:focus {
+.btn-start:focus {
   outline: 0;
-  box-shadow: 2px 2px #057397;
+  background-color: #057397;
 }
 
-body main .container-2 .btn-start:hover {
-  opacity: 0.7;
+.btn-start:hover {
+  background-color: #057397;
   transform: scale(1.1, 1.1);
   cursor: pointer;
 }
 
-body footer {
+aside {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  z-index: 9;
+  background-color: #000000;
+  opacity: 0.9;
+}
+
+aside ul {
+  list-style-type: none;
   width: 100%;
-  height: 35px;
-  background-color: #0DACDF;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-self: end;
-  color: #FFFFFF;
-  font-size: 14px;
+  flex-direction: column;
+}
+
+aside ul li {
+  width: 100%;
+  height: 30px;
+}
+
+aside ul a {
+  color: #F2F3F4;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  transition: background-color 0.2s linear;
+  transition: padding-left 0.2s linear;
+}
+
+aside ul a:before {
+  content: '»';
+  padding-right: 10px;
+}
+
+aside ul a:hover {
+  background-color: #057397;
+}
+
+aside ul a:hover:before {
+  padding-left: 20px;
 }
