@@ -14,17 +14,36 @@ function Menu(menu, buttonShow, buttonHide) {
     this.buttonHide.addEventListener("click", this.hide.bind(this))
 }
 Menu.prototype.show = function() {
-    this.menu.classList.remove("menu-hidden");
+    this.menu.classList.remove("menu-hidden"); //showing the menu
+    this.menu.classList.add("aside-animation-show"); //animating the menu
+    this.menu.offsetWidth=this.menu.offsetWidth; //a pollyfill for a bug - animation won't work more than once if you don't trigger reflow
+    this.removeShowAnimationBinded=this.removeShowAnimation.bind(this);
+    this.menu.addEventListener("animationend", this.removeShowAnimationBinded); //menu class must be removed when animation ends
     this.buttonShow.classList.add("button-hidden");
 
     //By clicking anywhere outside the menu user hides the menu
     this.bindedClickOutsideMenu = this.clickOutsideMenu.bind(this); //The bind must be assigned to a const, because event remover won't work with it written directly
     document.addEventListener("click", this.bindedClickOutsideMenu, true);
 }
+Menu.prototype.removeShowAnimation = function() {
+    //An auxilliary method used in method show - could't do an arrow function because the event listener should be removed
+    //remove the animation
+    this.menu.classList.remove("aside-animation-show");
+    //clean up
+    this.menu.removeEventListener("animationend", this.removeShowAnimationBinded);
+}
 Menu.prototype.hide = function() {
     this.buttonShow.classList.remove("button-hidden");
-    this.menu.classList.add("menu-hidden");
-    document.removeEventListener("click", this.bindedClickOutsideMenu, true);
+    this.menu.classList.add("aside-animation-hide");
+    this.menu.offsetWidth=this.menu.offsetWidth; //Forcing the browser to reflow
+    this.removeHideAnimationBinded = this.removeHideAnimation.bind(this); //event listener should be removed afterwards, and it won't work with bind written directly
+    this.menu.addEventListener("animationend", this.removeHideAnimationBinded);
+    document.removeEventListener("click", this.bindedClickOutsideMenu, true); //Remove the event listener that closes the menu after clicking anywhere
+}
+Menu.prototype.removeHideAnimation= function() {
+    this.menu.classList.add("menu-hidden"); //hide menu
+    this.menu.classList.remove("aside-animation-hide"); //remove the animation
+    this.menu.removeEventListener("animationend", this.removeHideAnimationBinded);
 }
 Menu.prototype.clickOutsideMenu = function(e) {
     if(!e.target.classList.contains("menu-part")) {

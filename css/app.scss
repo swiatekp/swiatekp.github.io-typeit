@@ -368,8 +368,15 @@ aside {
 }
 .aside-animation-show {
     animation-name:menu-show;
-    animation-duration:2s;
+    animation-duration:0.8s;
     animation-iteration-count:1;
+    /*No hover during the animation - looks bad if the cursor accidentaly gets on a link */
+    & a:hover {
+       background-color:transparent; 
+    }
+    & a:hover:before {
+        padding-left:0;
+    }
 }
 @keyframes menu-show {
     0% {
@@ -381,14 +388,14 @@ aside {
 }
 .aside-animation-hide {
     animation-name:menu-hide;
-    animation-duration:2s;
+    animation-duration:0.9s;
     animation-iteration-count:1;
 }
 @keyframes menu-hide {
     0% {
-        height:100vh;
+        right:0px;
     }
     100% {
-        height:0px;
+        right:-250px;
     }
 }
