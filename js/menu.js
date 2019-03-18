@@ -33,7 +33,6 @@ Menu.prototype.removeShowAnimation = function() {
     this.menu.removeEventListener("animationend", this.removeShowAnimationBinded);
 }
 Menu.prototype.hide = function() {
-    this.buttonShow.classList.remove("button-hidden");
     this.menu.classList.add("aside-animation-hide");
     this.menu.offsetWidth=this.menu.offsetWidth; //Forcing the browser to reflow
     this.removeHideAnimationBinded = this.removeHideAnimation.bind(this); //event listener should be removed afterwards, and it won't work with bind written directly
@@ -41,6 +40,7 @@ Menu.prototype.hide = function() {
     document.removeEventListener("click", this.bindedClickOutsideMenu, true); //Remove the event listener that closes the menu after clicking anywhere
 }
 Menu.prototype.removeHideAnimation= function() {
+    this.buttonShow.classList.remove("button-hidden"); //show hamburger button
     this.menu.classList.add("menu-hidden"); //hide menu
     this.menu.classList.remove("aside-animation-hide"); //remove the animation
     this.menu.removeEventListener("animationend", this.removeHideAnimationBinded);
