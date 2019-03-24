@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TypeIt! - trening szybkiego pisania na klawiaturze</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700" rel="stylesheet">
-    <link href="css/app.min.css" rel ="stylesheet">
+    <link href="css/app.css" rel ="stylesheet">
 </head>
 <body>
    <header> 
@@ -19,26 +19,7 @@
         </div>
         <button class ="hamburger-btn" type = "button"></button>
     </header>
-    <main>
-        <div class ="container-1">
-            <article>
-                <h2>TypeIt!</h2>
-                <p>
-                    TypeIt to narzędzie umożliwiające trening szybkiego pisania na klawiaturze. 
-                    Juz kilka powtórzeń dziennie wystarzy, by w krótkim czasie osiągnąć zauważalny efekt.
-                </p>
-                <p>
-                    Sprawdź, jak szybki jesteś razem z TypeIt!
-                </p>
-            </article>
-        </div>
-        <div class = "container-1">
-            <button type ="button" class ="btn-start">
-                Start
-                <object class ="right-arrow-lp" type="image/svg+xml" data ="img/right-arrow.svg"></object>
-            </button>
-        </div>
-    </main>
+    <main></main><!--The content of main is generated with JS-->
     <footer>
         <span>
             Made by Piotr Świątek 2019
@@ -50,34 +31,29 @@
             </button>
             <ul class ="menu-part">
                 <li class ="menu-part">
-                    <a class ="menu-part" title="Nowa gra" href ="#">
-                        Nowa gra
+                    <a class ="menu-part" title="Ekran główny" href ="#home">
+                        Ekran główny
                     </a>
                 </li>
                 <li class ="menu-part">
-                    <a class ="menu-part" title="Pauza" href ="#">
-                        Pauza
+                    <a class ="menu-part" title="Pauza" href ="#game">
+                        Gra
                     </a>
                 </li>
                 <li class ="menu-part">
-                    <a class ="menu-part" title="Stop" href ="#">
-                        Stop
+                    <a class ="menu-part" title="O autorze" href ="#author">
+                        O autorze
                     </a>
                 </li>
                 <li class ="menu-part">
-                    <a class ="menu-part" title="O autorze" href ="#">
+                    <a class ="menu-part" title="O projekcie" href ="#project">
                         O projekcie
-                    </a>
-                </li>
-                <li class ="menu-part">
-                    <a class ="menu-part" title="Powrót do ekranu głównego" href ="#">
-                        Powrót
                     </a>
                 </li>
             </ul>
         </nav>
     </aside>
-    <script src ="js/menu.js">
-    </script>
+    <script src ="js/menu.js"></script>
+    <script src ="js/router.js"></script>
 </body>
 </html>
