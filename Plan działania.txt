@@ -1,2 +1,0 @@
-Domyœlnie ma byæ pokazywany ekran z odpalon¹ ju¿ gr¹. 
-Javascript, jeœli dzia³a, po prostu ukrywa to co niepotrzebne. W zale¿noœci od stanu aplikacji przechowywanego w jakiejœ zmiennej, ma byæ wyœwietlany landing page, ekran powitalny albo gra. 
