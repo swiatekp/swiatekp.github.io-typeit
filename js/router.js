@@ -64,17 +64,19 @@ Router.prototype.readHTML=function() {
             fetch("views/404.html")
             .then(page404 => page404.text())
             .then(page404 => {
-                this.transition(page404);
+                //this.transition(page404);
+                this.target.innerHTML = page404;
             });
             return `Błąd ${resp.status}`;
         }
     })
     .then(resp=>resp.text())
     .then(resp => {
-        this.transition(resp);
+        //this.transition(resp);
+        this.target.innerHTML = resp;
     });
 }
-
+/*
 Router.prototype.transition = function(html) {
     if(this.target.innerHTML!=="") {    
         this.transitionFadeOut()
@@ -95,28 +97,34 @@ Router.prototype.transition = function(html) {
         });
     }
 }
-Router.prototype.resolve = function() {
-    resolve("OK");
-}
 Router.prototype.transitionFadeOut = function() {
-    this.resolveBinded = this.resolve.bind(this);
-    return new Promise((resolve, reject) => {
+    this.fadeOutPromise = new Promise((resolve, reject) => {
+        this.resolveBinded = this.resolve(0).bind(this);
         this.target.classList.add("container-fadeout"); //Animation - container disappears
         this.target.offsetWidth = this.target.offsetWidth;//Force the browser to reflow
         this.target.addEventListener("animationend", this.resolveBinded); //resolve if animationend is triggered
     });
+    return this.fadeOutPromise;
 }
 Router.prototype.transitionFadeIn = function() {
-    this.resolveBinded = this.resolve.bind(this);
-    return new Promise((resolve, reject)=> {
-        if(this.target.innerHTML==="") {
-            this.target.addEventListener("animationend", this.resolveBinded);
-        }
+    this.fadeInPromise = new Promise((resolve, reject)=> {
+        this.resolveBinded = this.resolve(1).bind(this);
+        this.target.addEventListener("animationend", this.resolveBinded);
+
         this.target.classList.remove("container-fadeout");
         this.target.classList.remove("container-non-appearent");
         this.target.classList.add("container-fadein");
         this.target.offsetWidth = this.target.offsetWidth;
     });
+    return this.fadeInPromise;
 }
+Router.prototype.resolve = function(which) {
+    if(which===0) {
+        this.fadeOutPromise.resolve("OK");
+    }
+    else if(which===1) {
+        this.fadeInPromise.resolve("OK");
+    }
+}*/
 const t = document.querySelector("main");
 new Router(t);

@@ -518,6 +518,7 @@ aside ul a:hover:before {
     opacity: 1;
   }
 }
+
 .container-non-appearent {
   opacity: 0;
 }
