@@ -171,6 +171,7 @@ body main .container-1 {
 body main .container-1 p {
   margin: 20px 0 20px 0;
   text-align: justify;
+  width: 100%;
 }
 
 body main .container-1 .game, body main .container-1 .result {
