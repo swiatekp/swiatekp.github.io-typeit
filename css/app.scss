@@ -5,6 +5,7 @@ $black:#000000;
 $white-pure:#FFFFFF;
 $white-main: #F2F3F4;
 $grey-text:#9E9797;
+$grey-link:rgb(119, 116, 116);
 $grey-animals:#E9E5E5;
 $grey-main-border:#E9E5E5;
 
@@ -26,6 +27,13 @@ body {
     justify-content:space-between;
     font-family: 'Open Sans', sans-serif;
     color:$grey-text;
+    a {
+        color:$grey-link;
+        text-decoration:none;
+        &:hover {
+            color:$grey-text;
+        }
+    }
     header {
         width:100%;
         @include flexible();
@@ -357,6 +365,7 @@ aside {
         }
         a:hover {
             background-color:$blue-onfocus;
+            color:$white-main;
         }
         a:hover:before {
             padding-left:20px;

@@ -18,6 +18,15 @@ body {
   color: #9E9797;
 }
 
+body a {
+  color: #777474;
+  text-decoration: none;
+}
+
+body a:hover {
+  color: #9E9797;
+}
+
 body header {
   width: 100%;
   display: flex;
@@ -443,6 +452,7 @@ aside ul a:before {
 
 aside ul a:hover {
   background-color: #057397;
+  color: #F2F3F4;
 }
 
 aside ul a:hover:before {
