@@ -345,6 +345,10 @@ body main .container-1 .contact-input::placeholder {
   opacity: 1;
 }
 
+body main .container-1 .contact-label {
+  display: none;
+}
+
 body main .container-1 .textarea-content {
   height: 80px;
   padding-top: 5px;
