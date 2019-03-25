@@ -238,6 +238,53 @@ body {
                     height:40px;
                 }
             }
+            .contact-row {
+                display:flex;
+                justify-content:flex-start;
+                align-items:center;
+                width:100%;
+                height: 60px;
+                font-size:1.2rem;
+                @media(max-width:370px) {
+                    font-size:1rem;
+                }
+            }
+            .contact-row span {
+                margin: 0 0 0 25px;
+            }
+            .contact-input {
+                width:80%;
+                margin: 0 0 10px 0;
+                padding: 0 20px 0 20px;
+                color:$white-pure;
+                text-align:justify;
+                font-size:inherit;
+                font-family:inherit;
+                height:30px;
+                border:0;
+                background-color:$blue;
+                border-radius:4px;
+                color:$white-pure;
+                transition: background-color 0.2s linear;
+                &:focus {
+                    outline:none;
+                    background-color:$blue-onfocus;
+                }
+                &::placeholder {
+                    color:$white-pure;
+                    opacity:1;
+                }
+            }
+            .textarea-content {
+                height:80px;
+                padding-top:5px;
+                resize:none;
+            }
+            .contact-button {
+                width:100px;
+                height:30px;
+                font-size: 12px;
+            }
         }
         .container-1:first-child {
             margin: 0 4% 0 0;
@@ -256,7 +303,7 @@ body {
         font-size: 14px;
     }
 }
-.btn-start {
+.btn-start, .contact-button {
     justify-self:center;
     @include flexible;
     border:none;
