@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+object {
+  /*The following makes Object elements with SVG graphics clickable in Chrome*/
+  pointer-events: none;
+}
+
 body {
   width: 100%;
   min-height: 100vh;
