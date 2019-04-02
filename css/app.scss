@@ -1,5 +1,6 @@
 /*Colors*/
 $blue: #0DACDF;
+$blue-disabled:rgb(123, 200, 226);
 $blue-onfocus: rgb(5, 115, 151);
 $black:#000000;
 $white-pure:#FFFFFF;
@@ -278,9 +279,26 @@ body {
                     color:$white-pure;
                     opacity:1;
                 }
+                &:disabled {
+                    background-color:$blue-disabled;
+                }
             }
             .contact-label {
                 display:none;
+            }
+            .input-error {
+                background-color: #d82e2e;
+            }
+            .contact-error-container {
+                width:100%;
+                height:20px;
+                display:flex;
+                margin:10px 0 10px 0;
+            }
+            .contact-warning-pic {
+                width:20px;
+                height:20px;
+                margin: 0 20px 0 0;
             }
             .textarea-content {
                 height:80px;
