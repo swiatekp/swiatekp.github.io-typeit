@@ -74,6 +74,7 @@ Router.prototype.readHTML=function() {
     .then(resp => {
         //this.transition(resp);
         this.target.innerHTML = resp;
+        document.dispatchEvent(new Event("routercontentloaded")); //Let the other scripts know, that the content is loaded
     });
 }
 /*
