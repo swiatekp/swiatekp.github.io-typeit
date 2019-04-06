@@ -1,9 +1,12 @@
-function FormValidator(apiUrl, form, ...inputs ) {
+function FormValidator(apiUrl, form, honeypot, ...inputs ) {
     //First parameter - an url to an API, that will process the form
     //Second parameter - a refferention to the form
-    //Third and the next ones - refferention to the form fields, that should be validated
+    //Third parameter - a refferention to a field, which is a honeypot
+    //Fourth and the next ones - refferention to the form fields, that should be validated
     this.apiUrl = apiUrl;
-    this.form = form,
+    this.form = form;
+    this.honeypot = honeypot;
+    this.honeypot.classList.add("hp"); //hide the honeypot
     this.inputs = inputs;
 
     this.form.addEventListener("submit", this.submitHandler.bind(this));
@@ -123,12 +126,20 @@ FormValidator.prototype.removeError=function(field, type) {
 } 
 FormValidator.prototype.submitHandler = function(e) {
     e.preventDefault();
-    this.formIsReady = true;
-    this.inputs.forEach(el => {
+    if(this.honeypot === "") {
         
-    })
+    }
 }
 document.addEventListener("routercontentloaded", ()=> {
+    //routercontentloaded is a custom event that is triggered when a subpage is loaded by router.js
+    //you need to wait for it to be triggered to catch refferentions to DOM elements that are in the subpages
+    
     const formRef = document.querySelector(".contact-form");
-    new FormValidator("http://dupa.pl", formRef, document.querySelector("#contact-name"), document.querySelector("#contact-subject"), document.querySelector("#contact-email"), document.querySelector("#contact-content"));
+    const honeypotRef = document.querySelector("#contact-surname");
+    const nameRef = document.querySelector("#contact-name");
+    const subjectRef = document.querySelector("#contact-subject");
+    const emailRef = document.querySelector("#contact-email");
+    const contentRef = document.querySelector("#contact-content");
+
+    new FormValidator("http://dupa.pl", formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
 });

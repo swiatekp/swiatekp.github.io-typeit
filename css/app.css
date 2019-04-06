@@ -358,6 +358,10 @@ body main .container-1 .contact-label {
   display: none;
 }
 
+body main .container-1 .hp {
+  display: none;
+}
+
 body main .container-1 .input-error {
   background-color: #d82e2e;
 }
