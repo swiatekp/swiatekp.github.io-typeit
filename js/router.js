@@ -22,6 +22,7 @@ function Router(target) {
     window.addEventListener("hashchange", this.hashchangeHandler.bind(this));
     //read the html
     this.readHTML();
+    this.blockHashchange = false; //you can not change the hash while the this.target is being animated
 }
 Router.prototype.checkHashValidity=function(hash) {
     //returns false if hash is invalid or not specified
@@ -42,12 +43,17 @@ Router.prototype.checkHashValidity=function(hash) {
 Router.prototype.hashchangeHandler = function() {
     //changes this.hash - triggered by hashchange event
     this.newHash = window.location.hash.substr(1, window.location.hash.length-1); //remove the # sign from the start
-    if(this.checkHashValidity(this.newHash)) {
-        this.hash = this.newHash.toLowerCase();
-        this.readHTML();
+    if(this.blockHashchange === false) {   //while this.target is being animated, you cannot switch subpages
+        if(this.checkHashValidity(this.newHash)) {
+            this.hash = this.newHash.toLowerCase();
+            this.readHTML();
+        }
+        else {
+            window.location.hash = this.hash; //if the given hash is wrong, set it to the previous one
+        }
     }
     else {
-        window.location.hash = this.hash; //if the given hash is wrong, set it to the previous one
+        window.location.hash = this.hash; //if you try to switch subpages while animation isn't yet over, nothing should change
     }
 }
 Router.prototype.readHTML=function() {
@@ -64,7 +70,6 @@ Router.prototype.readHTML=function() {
             fetch("views/404.html")
             .then(page404 => page404.text())
             .then(page404 => {
-                //this.transition(page404);
                 this.target.innerHTML = page404;
             });
             return `Błąd ${resp.status}`;
@@ -72,60 +77,28 @@ Router.prototype.readHTML=function() {
     })
     .then(resp=>resp.text())
     .then(resp => {
-        //this.transition(resp);
-        this.target.innerHTML = resp;
-        document.dispatchEvent(new Event("routercontentloaded")); //Let the other scripts know, that the content is loaded
+        this.resp = resp; //need to use the resp in fadeout()
+        this.blockHashchange = true; //you can not change the subpage while this.target is being animated
+        this.target.classList.add("container-fadeout");
+        this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
+        this.fadeoutBinded = this.fadeout.bind(this);
+        this.target.addEventListener("animationend", this.fadeoutBinded);
     });
 }
-/*
-Router.prototype.transition = function(html) {
-    if(this.target.innerHTML!=="") {    
-        this.transitionFadeOut()
-        .then(()=>{
-            this.target.innerHTML = html;
-            this.transitionFadeIn().then(()=>{
-                this.target.removeEventListener("animationend", this.resolveBinded);
-                this.target.classList.remove("container-fadein");
-            });
-        });
-    }
-    else {
-        this.target.classList.add("container-non-appearent");
-        this.target.innerHTML=html;
-        this.transitionFadeIn().then(()=>{
-            this.target.removeEventListener("animationend", this.resolveBinded);
-            this.target.classList.remove("container-fadein");
-        });
-    }
+Router.prototype.fadeout = function() {
+    this.target.innerHTML = this.resp;
+    document.dispatchEvent(new Event("routercontentloaded")); //Let the other scripts know, that the content is loaded
+    this.target.removeEventListener("animationend", this.fadeoutBinded);
+    this.target.classList.remove("container-fadeout");
+    this.target.classList.add("container-fadein");
+    this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
+    this.fadeinBinded = this.fadein.bind(this);
+    this.target.addEventListener("animationend", this.fadeinBinded);
 }
-Router.prototype.transitionFadeOut = function() {
-    this.fadeOutPromise = new Promise((resolve, reject) => {
-        this.resolveBinded = this.resolve(0).bind(this);
-        this.target.classList.add("container-fadeout"); //Animation - container disappears
-        this.target.offsetWidth = this.target.offsetWidth;//Force the browser to reflow
-        this.target.addEventListener("animationend", this.resolveBinded); //resolve if animationend is triggered
-    });
-    return this.fadeOutPromise;
+Router.prototype.fadein = function() {
+    this.target.removeEventListener("animationend", this.fadeinBinded);
+    this.target.classList.remove("container-fadein");
+    this.blockHashchange = false; //After the animation is over, pages can be switched
 }
-Router.prototype.transitionFadeIn = function() {
-    this.fadeInPromise = new Promise((resolve, reject)=> {
-        this.resolveBinded = this.resolve(1).bind(this);
-        this.target.addEventListener("animationend", this.resolveBinded);
-
-        this.target.classList.remove("container-fadeout");
-        this.target.classList.remove("container-non-appearent");
-        this.target.classList.add("container-fadein");
-        this.target.offsetWidth = this.target.offsetWidth;
-    });
-    return this.fadeInPromise;
-}
-Router.prototype.resolve = function(which) {
-    if(which===0) {
-        this.fadeOutPromise.resolve("OK");
-    }
-    else if(which===1) {
-        this.fadeInPromise.resolve("OK");
-    }
-}*/
 const t = document.querySelector("main");
 new Router(t);
