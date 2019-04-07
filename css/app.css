@@ -617,10 +617,6 @@ aside ul a:hover:before {
   }
 }
 
-.container-non-appearent {
-  opacity: 0;
-}
-
 .hidden {
   display: none;
 }
