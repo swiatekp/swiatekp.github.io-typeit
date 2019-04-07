@@ -383,6 +383,7 @@ body main .container-1 .textarea-content {
   height: 80px;
   padding-top: 5px;
   resize: none;
+  overflow: hidden;
 }
 
 body main .container-1 .contact-button {
