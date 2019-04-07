@@ -135,37 +135,51 @@ FormValidator.prototype.removeError=function(field, type) {
 FormValidator.prototype.submitHandler = function(e) {
     e.preventDefault();
     if(this.honeypot.value === "") {
-        this.popupMessage = document.querySelector(".contact-popup-container");
-        this.popupCloseButton = document.querySelector(".contact-close-button");
-        this.removePopupBinded = this.removePopup.bind(this);
-        this.popupCloseButton.addEventListener("click", this.removePopupBinded);    
-        this.loading = document.querySelector(".loading");
-        this.loading.classList.remove("hidden"); //Show an animation of loading
+        //The following lines check, if any errors occured
+        this.areThereErrors = false;
+        if(this.form.errors.length>0) {
+            this.areThereErrors = true;
+        }
+        this.inputs.forEach(el=>{
+            if(el.errors.length>0) {
+                this.areThereErrors = true;
+            }
+            if(el.value==="") {
+                this.areThereErrors = true;
+            }
+        });
+        if(this.areThereErrors === false) { //if any errors occured, the submit button won't work
+            this.popupMessage = document.querySelector(".contact-popup-container");
+            this.popupCloseButton = document.querySelector(".contact-close-button");
+            this.removePopupBinded = this.removePopup.bind(this);
+            this.popupCloseButton.addEventListener("click", this.removePopupBinded);    
+            this.loading = document.querySelector(".loading");
+            this.loading.classList.remove("hidden"); //Show an animation of loading
 
-        emailjs.sendForm(this.emailjsConfig.serviceId, this.emailjsConfig.templateId, this.form)
-        .then(()=>{
-            this.removeError(this.form, 3); //Removes the sending error if one previously occured
-            this.loading.classList.add("hidden");
-            this.popupMessage.classList.remove("hidden");
-            this.popupMessage.classList.add("container-fadein");
-            this.fadeInAnimationEndBinded=this.fadeInAnimationEnd.bind(this);
-            this.popupMessage.addEventListener("animationend", this.fadeInAnimationEndBinded);
-            this.popupMessage.offsetWidth=this.popupMessage.offsetWidth; //Force the browser to reflow
-        })
-        .catch((error) => {
-            console.log(error);
-            this.loading.classList.add("hidden");
-            this.displayError(this.form, "Błąd wysyłania formularza", 3);
-        })
+            emailjs.sendForm(this.emailjsConfig.serviceId, this.emailjsConfig.templateId, this.form)
+            .then(()=>{
+                this.removeError(this.form, 3); //Removes the sending error if one previously occured
+                this.loading.classList.add("hidden");
+                this.popupMessage.classList.remove("hidden");
+                this.popupMessage.classList.add("container-fadein");
+                this.form.reset();
+                this.fadeInAnimationEndBinded=this.fadeInAnimationEnd.bind(this);
+                this.popupMessage.addEventListener("animationend", this.fadeInAnimationEndBinded);
+                this.popupMessage.offsetWidth=this.popupMessage.offsetWidth; //Force the browser to reflow
+            })
+            .catch((error) => {
+                console.log(error);
+                this.loading.classList.add("hidden");
+                this.displayError(this.form, "Błąd wysyłania formularza", 3);
+            })
+        }
     }
 }
 FormValidator.prototype.fadeInAnimationEnd = function() {
     this.popupMessage.removeEventListener("animationend", this.fadeInAnimationEndBinded);
     this.popupMessage.classList.remove("container-fadein");
-    console.log("fade in animation end");
 }
 FormValidator.prototype.fadeOutAnimationEnd = function() {
-    console.log("fade out animation end");
     this.popupMessage.classList.add("hidden");
     this.popupMessage.classList.remove("container-fadeout");
     this.popupMessage.removeEventListener("animationend", this.fadeOutAnimationEndBinded);
