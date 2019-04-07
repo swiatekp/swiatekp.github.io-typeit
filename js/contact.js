@@ -3,13 +3,13 @@ function FormValidator(emailjsConfig, form, honeypot, ...inputs ) {
     //To get it working properly, add certain lines to your index.html first - find out more in emailjs documentation
     //First parameter - object - email JS config
     //Example:
-    //{
-    //  serviceId: '<YOUR SERVICE ID>
-    //  templateId: '<YOUR TEMPLATE ID> 
-    //}
-    //Second parameter - a refferention to the form
-    //Third parameter - a refferention to a field, which is a honeypot
-    //Fourth and the next ones - refferention to the form fields, that should be validated
+    //  {
+    //      serviceId: '<YOUR SERVICE ID>'
+    //      templateId: '<YOUR TEMPLATE ID>' 
+    //  }
+    //Second parameter - a reference to the form
+    //Third parameter - a reference to a field, which is a honeypot
+    //Fourth and the next ones - reference to the form fields, that should be validated
     this.emailjsConfig = emailjsConfig;
     this.form = form;
     this.form.errors =[];
@@ -20,7 +20,7 @@ function FormValidator(emailjsConfig, form, honeypot, ...inputs ) {
     this.form.addEventListener("submit", this.submitHandler.bind(this));
     this.inputs.forEach(input=>{
         input.addEventListener("focusout", this.validateField.bind(this));
-        input.errors = []; //This array will gather input errors - as refferentions to divs that will display error texts
+        input.errors = []; //This array will gather input errors - as references to divs that will display error texts
     });
 }
 FormValidator.prototype.validateField = function(e) {
@@ -93,7 +93,7 @@ FormValidator.prototype.validateValue=function(target, maxLength, regEx) {
     }
 }
 FormValidator.prototype.displayError=function(field, errorText, errType) {
-    //First parameter - refferention to form field
+    //First parameter - reference to form field
     //Second parameter - error Text 
     //Third parameter - error type (0 for no input, 1 for max length exceedeed, 2 for wrong regex 3 for form sending error) 
     //Error type is necessary for error removal
@@ -193,7 +193,7 @@ FormValidator.prototype.removePopup = function(e) {
 }
 document.addEventListener("routercontentloaded", ()=> {
     //routercontentloaded is a custom event that is triggered when a subpage is loaded by router.js
-    //you need to wait for it to be triggered to catch refferentions to DOM elements that are in the subpages
+    //you need to wait for it to be triggered to catch reference to DOM elements that are in the subpages
     
     const mailjsConf = {
         serviceId: "contact",

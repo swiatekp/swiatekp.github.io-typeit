@@ -2,8 +2,8 @@ function Menu(menu, buttonShow, buttonHide) {
     //A function, that shows and hides the navigation menu
     //First parameter - referention to the menu
     //Menu and button must have classes menu-hidden, that hides the menu with CSS. Might be done anyhow
-    //Second parameter - refferention to the hamburger button that shows the menu
-    //Third parameter - refferention to the close buttton that hides the menu
+    //Second parameter - reference to the hamburger button that shows the menu
+    //Third parameter - reference to the close buttton that hides the menu
     //CAUTION - ALL ELEMENTS OF THE MENU MUST HAVE A menu-part CLASS
     this.menu = menu;
     this.buttonShow = buttonShow;

@@ -1,8 +1,8 @@
 function Router(target) {
-    //parameter - a referention to the DOM element - container for the views
+    //parameter - a reference to the DOM element - container for the views
     try {
         if(target===undefined || target===null) {
-            throw "Wrong parameter for Router constructor. Must be a refferention to DOM Element. Undefined or null given";
+            throw "Wrong parameter for Router constructor. Must be a reference to DOM Element. Undefined or null given";
         }
         else {
             this.target=target;
