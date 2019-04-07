@@ -1,10 +1,18 @@
-function FormValidator(apiUrl, form, honeypot, ...inputs ) {
-    //First parameter - an url to an API, that will process the form
+function FormValidator(emailjsConfig, form, honeypot, ...inputs ) {
+    //The script requests an Email JS API to work correctly - https://www.emailjs.com 
+    //To get it working properly, add certain lines to your index.html first - find out more in emailjs documentation
+    //First parameter - object - email JS config
+    //Example:
+    //{
+    //  serviceId: '<YOUR SERVICE ID>
+    //  templateId: '<YOUR TEMPLATE ID> 
+    //}
     //Second parameter - a refferention to the form
     //Third parameter - a refferention to a field, which is a honeypot
     //Fourth and the next ones - refferention to the form fields, that should be validated
-    this.apiUrl = apiUrl;
+    this.emailjsConfig = emailjsConfig;
     this.form = form;
+    this.form.errors =[];
     this.honeypot = honeypot;
     this.honeypot.classList.add("hp"); //hide the honeypot
     this.inputs = inputs;
@@ -87,7 +95,7 @@ FormValidator.prototype.validateValue=function(target, maxLength, regEx) {
 FormValidator.prototype.displayError=function(field, errorText, errType) {
     //First parameter - refferention to form field
     //Second parameter - error Text 
-    //Third parameter - error type (0 for no input, 1 for max length exceedeed and 2 for wrong regex) 
+    //Third parameter - error type (0 for no input, 1 for max length exceedeed, 2 for wrong regex 3 for form sending error) 
     //Error type is necessary for error removal
 
     
@@ -126,14 +134,57 @@ FormValidator.prototype.removeError=function(field, type) {
 } 
 FormValidator.prototype.submitHandler = function(e) {
     e.preventDefault();
-    if(this.honeypot === "") {
-        
+    if(this.honeypot.value === "") {
+        this.popupMessage = document.querySelector(".contact-popup-container");
+        this.popupCloseButton = document.querySelector(".contact-close-button");
+        this.removePopupBinded = this.removePopup.bind(this);
+        this.popupCloseButton.addEventListener("click", this.removePopupBinded);    
+        this.loading = document.querySelector(".loading");
+        this.loading.classList.remove("hidden"); //Show an animation of loading
+
+        emailjs.sendForm(this.emailjsConfig.serviceId, this.emailjsConfig.templateId, this.form)
+        .then(()=>{
+            this.removeError(this.form, 3); //Removes the sending error if one previously occured
+            this.loading.classList.add("hidden");
+            this.popupMessage.classList.remove("hidden");
+            this.popupMessage.classList.add("container-fadein");
+            this.fadeInAnimationEndBinded=this.fadeInAnimationEnd.bind(this);
+            this.popupMessage.addEventListener("animationend", this.fadeInAnimationEndBinded);
+            this.popupMessage.offsetWidth=this.popupMessage.offsetWidth; //Force the browser to reflow
+        })
+        .catch((error) => {
+            console.log(error);
+            this.loading.classList.add("hidden");
+            this.displayError(this.form, "Błąd wysyłania formularza", 3);
+        })
     }
+}
+FormValidator.prototype.fadeInAnimationEnd = function() {
+    this.popupMessage.removeEventListener("animationend", this.fadeInAnimationEndBinded);
+    this.popupMessage.classList.remove("container-fadein");
+    console.log("fade in animation end");
+}
+FormValidator.prototype.fadeOutAnimationEnd = function() {
+    console.log("fade out animation end");
+    this.popupMessage.classList.add("hidden");
+    this.popupMessage.classList.remove("container-fadeout");
+    this.popupMessage.removeEventListener("animationend", this.fadeOutAnimationEndBinded);
+}
+FormValidator.prototype.removePopup = function(e) {
+    e.stopPropagation();
+    this.popupMessage.classList.add("container-fadeout");
+    this.popupMessage.offsetWidth = this.popupMessage.offsetWidth; //force the browser to reflow
+    this.fadeOutAnimationEndBinded = this.fadeOutAnimationEnd.bind(this);
+    this.popupMessage.addEventListener("animationend", this.fadeOutAnimationEndBinded);
 }
 document.addEventListener("routercontentloaded", ()=> {
     //routercontentloaded is a custom event that is triggered when a subpage is loaded by router.js
     //you need to wait for it to be triggered to catch refferentions to DOM elements that are in the subpages
     
+    const mailjsConf = {
+        serviceId: "contact",
+        templateId: "contact_form"
+    }
     const formRef = document.querySelector(".contact-form");
     const honeypotRef = document.querySelector("#contact-surname");
     const nameRef = document.querySelector("#contact-name");
@@ -141,5 +192,5 @@ document.addEventListener("routercontentloaded", ()=> {
     const emailRef = document.querySelector("#contact-email");
     const contentRef = document.querySelector("#contact-content");
 
-    new FormValidator("http://dupa.pl", formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
+    new FormValidator(mailjsConf, formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
 });

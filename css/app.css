@@ -483,35 +483,6 @@ aside .aside-container {
   justify-content: flex-start;
 }
 
-aside .close-button {
-  background-color: transparent;
-  background-image: url("../img/close.svg");
-  background-position: center;
-  background-size: cover;
-  border: 0;
-  align-self: flex-end;
-  width: 20px;
-  height: 20px;
-  margin: 10px 10px 0px 0px;
-  transition: transform 0.2s linear;
-}
-
-aside .close-button:hover {
-  transform: rotate(45deg);
-  opacity: 0.8;
-}
-
-aside .close-button:focus {
-  outline: none;
-  transform: rotate(45deg);
-  opacity: 0.8;
-}
-
-aside .close-button object {
-  width: 20px;
-  height: 20px;
-}
-
 aside ul {
   margin: auto 0 auto 0;
   list-style-type: none;
@@ -549,6 +520,30 @@ aside ul a:hover {
 
 aside ul a:hover:before {
   padding-left: 20px;
+}
+
+.close-button {
+  background-color: transparent;
+  background-image: url("../img/close.svg");
+  background-position: center;
+  background-size: cover;
+  border: 0;
+  align-self: flex-end;
+  width: 20px;
+  height: 20px;
+  margin: 10px 10px 0px 0px;
+  transition: transform 0.2s linear;
+}
+
+.close-button:hover {
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+.close-button:focus {
+  outline: none;
+  transform: rotate(45deg);
+  opacity: 0.8;
 }
 
 .menu-hidden {
@@ -623,4 +618,106 @@ aside ul a:hover:before {
 
 .container-non-appearent {
   opacity: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.contact-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  /*last parameter is opacity*/
+  /*opacity is done this way to prevent children from inheriting it*/
+  z-index: 99998;
+}
+
+.contact-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 48vw;
+  margin: -24vw -40vw -24vw -40vw;
+  padding: 10px 10px 10px 10px;
+  z-index: 99999;
+  background-color: #F2F3F4;
+  border-radius: 5px;
+}
+
+@media (min-width: 600px) {
+  .contact-popup {
+    width: 50vw;
+    height: 24vw;
+    margin: -12vw -25vw -12vw -25vw;
+  }
+}
+
+.contact-popup div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: ". . close-button" "illustration text text";
+  grid-template-columns: 15vw auto 25px;
+  grid-template-rows: 25px 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.contact-popup div .contact-close-button {
+  grid-area: close-button;
+  background-color: transparent;
+  background-image: url("../img/close-black.svg");
+  background-position: center;
+  background-size: cover;
+  border: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s linear;
+}
+
+.contact-popup div .contact-close-button:hover {
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+.contact-popup div .contact-close-button:focus {
+  outline: none;
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+.contact-popup object {
+  grid-area: illustration;
+  width: 10vw;
+  height: 10vw;
+}
+
+.contact-popup .contact-popup-message {
+  grid-area: text;
+  margin: 10px 10px 10px;
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  margin: -50px -50px -50px -50px;
+  animation-name: loading-spin;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading-spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
