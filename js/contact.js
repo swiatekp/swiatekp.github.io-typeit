@@ -38,7 +38,7 @@ FormValidator.prototype.validateField = function(e) {
     else {
         this.removeError(e.target, 0); //this.removeError checks if there were errors displayed and eventually removes them
         if(e.target.type === "text") {
-            if(this.validateValue(e.target, 20, /^[a-zęóąśłżźćń0-9 .!%()-_=+;:,.?]+$/i)) {
+            if(this.validateValue(e.target, 150, /^[a-zęóąśłżźćń0-9 .!%()-_=+;:,.?]+$/i)) {
                 return true;
             }
             else {
