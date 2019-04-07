@@ -194,17 +194,18 @@ FormValidator.prototype.removePopup = function(e) {
 document.addEventListener("routercontentloaded", ()=> {
     //routercontentloaded is a custom event that is triggered when a subpage is loaded by router.js
     //you need to wait for it to be triggered to catch reference to DOM elements that are in the subpages
-    
-    const mailjsConf = {
-        serviceId: "contact",
-        templateId: "contact_form"
-    }
-    const formRef = document.querySelector(".contact-form");
-    const honeypotRef = document.querySelector("#contact-surname");
-    const nameRef = document.querySelector("#contact-name");
-    const subjectRef = document.querySelector("#contact-subject");
-    const emailRef = document.querySelector("#contact-email");
-    const contentRef = document.querySelector("#contact-content");
+    if(window.location.hash === "#contact") {
+        const mailjsConf = {
+            serviceId: "contact",
+            templateId: "contact_form"
+        }
+        const formRef = document.querySelector(".contact-form");
+        const honeypotRef = document.querySelector("#contact-surname");
+        const nameRef = document.querySelector("#contact-name");
+        const subjectRef = document.querySelector("#contact-subject");
+        const emailRef = document.querySelector("#contact-email");
+        const contentRef = document.querySelector("#contact-content");
 
-    new FormValidator(mailjsConf, formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
+        new FormValidator(mailjsConf, formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
+    }
 });
