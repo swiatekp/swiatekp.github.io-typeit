@@ -153,6 +153,7 @@ FormValidator.prototype.submitHandler = function(e) {
             this.popupCloseButton = document.querySelector(".contact-close-button");
             this.removePopupBinded = this.removePopup.bind(this);
             this.popupCloseButton.addEventListener("click", this.removePopupBinded);    
+            document.addEventListener("keydown", this.removePopupBinded);
             this.loading = document.querySelector(".loading");
             this.loading.classList.remove("hidden"); //Show an animation of loading
 
@@ -186,10 +187,17 @@ FormValidator.prototype.fadeOutAnimationEnd = function() {
 }
 FormValidator.prototype.removePopup = function(e) {
     e.stopPropagation();
-    this.popupMessage.classList.add("container-fadeout");
-    this.popupMessage.offsetWidth = this.popupMessage.offsetWidth; //force the browser to reflow
-    this.fadeOutAnimationEndBinded = this.fadeOutAnimationEnd.bind(this);
-    this.popupMessage.addEventListener("animationend", this.fadeOutAnimationEndBinded);
+    console.log(e.type);
+    console.log(e.type==="keydown" && e.key === "Escape");
+    console.log(e.key);
+    if(e.type === "click" || (e.type==="keydown" && e.key === "Escape")) {
+        this.popupMessage.removeEventListener("click", this.removePopupBinded);
+        document.removeEventListener("keydown", this.removePopupBinded);
+        this.popupMessage.classList.add("container-fadeout");
+        this.popupMessage.offsetWidth = this.popupMessage.offsetWidth; //force the browser to reflow
+        this.fadeOutAnimationEndBinded = this.fadeOutAnimationEnd.bind(this);
+        this.popupMessage.addEventListener("animationend", this.fadeOutAnimationEndBinded);
+    }
 }
 document.addEventListener("routercontentloaded", ()=> {
     //routercontentloaded is a custom event that is triggered when a subpage is loaded by router.js
