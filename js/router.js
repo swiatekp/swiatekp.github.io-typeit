@@ -21,7 +21,7 @@ function Router(target) {
     //listen if the hash changes
     window.addEventListener("hashchange", this.hashchangeHandler.bind(this));
     //read the html
-    this.readHTML();
+    this.readHTML(true);
     this.blockHashchange = false; //you can not change the hash while the this.target is being animated
 }
 Router.prototype.checkHashValidity=function(hash) {
@@ -46,7 +46,7 @@ Router.prototype.hashchangeHandler = function() {
     if(this.blockHashchange === false) {   //while this.target is being animated, you cannot switch subpages
         if(this.checkHashValidity(this.newHash)) {
             this.hash = this.newHash.toLowerCase();
-            this.readHTML();
+            this.readHTML(false);
         }
         else {
             window.location.hash = this.hash; //if the given hash is wrong, set it to the previous one
@@ -56,8 +56,10 @@ Router.prototype.hashchangeHandler = function() {
         window.location.hash = this.hash; //if you try to switch subpages while animation isn't yet over, nothing should change
     }
 }
-Router.prototype.readHTML=function() {
+Router.prototype.readHTML=function(firstTimeAfterReload) {
     //puts the HTML content in this.target
+    //the parameter is true, if the function is working for the first time after reload
+    //it's important for the animation
     this.url = `views/${this.hash}.html`;
 
     fetch(this.url)
@@ -79,10 +81,19 @@ Router.prototype.readHTML=function() {
     .then(resp => {
         this.resp = resp; //need to use the resp in fadeout()
         this.blockHashchange = true; //you can not change the subpage while this.target is being animated
-        this.target.classList.add("container-fadeout");
-        this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
-        this.fadeoutBinded = this.fadeout.bind(this);
-        this.target.addEventListener("animationend", this.fadeoutBinded);
+        if(firstTimeAfterReload === false) {
+            this.target.classList.add("container-fadeout");
+            this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
+            this.fadeoutBinded = this.fadeout.bind(this);
+            this.target.addEventListener("animationend", this.fadeoutBinded);
+        }
+        else {
+            this.target.classList.add("container-fadein");
+            this.target.innerHTML = this.resp;
+            this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
+            this.fadeinBinded = this.fadein.bind(this);
+            this.target.addEventListener("animationend", this.fadeinBinded);
+        }
     });
 }
 Router.prototype.fadeout = function() {
