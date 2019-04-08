@@ -46,7 +46,7 @@ $white-main:#F2F3F4;
     display:none;
 }
 .input-error {
-    background-color: #d82e2e;
+    background-color: #d82e2e !important;
 }
 .contact-error-container {
     width:100%;
@@ -66,9 +66,9 @@ $white-main:#F2F3F4;
     overflow:hidden;
 }
 .contact-button {
-    width:100px;
-    height:30px;
-    font-size: 12px;
+    width:100px !important;
+    height:30px !important;
+    font-size:12px !important;
 }
 .contact-popup-container {
     position:fixed;

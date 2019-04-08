@@ -52,7 +52,7 @@
 }
 
 .input-error {
-  background-color: #d82e2e;
+  background-color: #d82e2e !important;
 }
 
 .contact-error-container {
@@ -76,9 +76,9 @@
 }
 
 .contact-button {
-  width: 100px;
-  height: 30px;
-  font-size: 12px;
+  width: 100px !important;
+  height: 30px !important;
+  font-size: 12px !important;
 }
 
 .contact-popup-container {
