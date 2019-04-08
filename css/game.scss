@@ -1,0 +1,89 @@
+$grey-text:#9E9797;
+$blue: #0DACDF;
+$blue-onfocus: rgb(5, 115, 151);
+@mixin flexible() {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.game, .result {
+    width:100%;
+    height:auto;
+    @include flexible();
+    flex-direction:column;
+    align-items:center;
+    h2, h3 {
+        width:80%;
+        text-align:center;
+    }
+    h2 {
+        font-size:1.3rem;
+        font-weight:normal;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    h3 {
+        font-weight:normal;
+        font-size: 0.9rem;
+    }
+    p {
+        width:80%;
+        text-align:justify;
+        padding:0 20px 0 20px;
+    }
+    p {
+        margin:25px 0 6px 0;
+    }
+}
+.result {
+    @include flexible();
+}
+.result-symbols {
+    @include flexible();
+    margin: 40px 10px 20px 10px;
+    object {
+        width: 60px;
+    }
+    @media(min-width:450px) {
+        object {
+            width: 100px;
+        }
+    }
+}
+.result-cup {
+    width:40px;
+    margin:0 10px 0 0;
+}
+.steering {
+    width:80%;
+    @include flexible();
+    justify-content:space-around;
+    button {
+        width: 100px;
+        height: 65px;
+        @include flexible();
+        background-color:$grey-text;
+        border:0;
+        border-radius:30px;
+        &:focus {
+            outline:0;
+        }
+    }
+    .active {
+        background-color:$blue;
+        transition: background-color 0.2s linear;
+        transition: transform 0.2 linear;
+        &:focus {
+            background-color:$blue-onfocus;
+        }
+        &:hover {
+            background-color:$blue-onfocus;
+            transform:scale(1.1, 1);
+        }
+    }
+    object {
+        width:40px;
+        height:40px;
+    }
+}    

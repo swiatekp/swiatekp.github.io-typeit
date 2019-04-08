@@ -1,0 +1,180 @@
+/*Style for the contact subpage*/
+.contact-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  font-size: 1rem;
+}
+
+@media (min-width: 370px) {
+  .contact-row {
+    font-size: 1.2rem;
+  }
+}
+
+.contact-row span {
+  margin: 0 0 0 25px;
+}
+
+.contact-input {
+  width: 80%;
+  margin: 0 0 10px 0;
+  padding: 0 20px 0 20px;
+  color: #FFFFFF;
+  text-align: justify;
+  font-size: inherit;
+  font-family: inherit;
+  height: 30px;
+  border: 0;
+  background-color: #0DACDF;
+  border-radius: 4px;
+  transition: background-color 0.2s linear;
+}
+
+.contact-input:focus {
+  outline: none;
+  background-color: #057397;
+}
+
+.contact-input::placeholder {
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+.contact-label {
+  display: none;
+}
+
+.hp {
+  display: none;
+}
+
+.input-error {
+  background-color: #d82e2e;
+}
+
+.contact-error-container {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  margin: 10px 0 10px 0;
+}
+
+.contact-warning-pic {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px 0 0;
+}
+
+.textarea-content {
+  height: 80px;
+  padding-top: 5px;
+  resize: none;
+  overflow: hidden;
+}
+
+.contact-button {
+  width: 100px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.contact-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  /*last parameter is opacity*/
+  /*opacity is done this way to prevent children from inheriting it*/
+  z-index: 99998;
+}
+
+.contact-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 48vw;
+  margin: -24vw -40vw -24vw -40vw;
+  padding: 10px 10px 10px 10px;
+  z-index: 99999;
+  background-color: #F2F3F4;
+  border-radius: 5px;
+}
+
+@media (min-width: 600px) {
+  .contact-popup {
+    width: 50vw;
+    height: 24vw;
+    margin: -12vw -25vw -12vw -25vw;
+  }
+}
+
+.contact-popup div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: ". . close-button" "illustration text text";
+  grid-template-columns: 15vw auto 25px;
+  grid-template-rows: 25px 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.contact-popup div .contact-close-button {
+  grid-area: close-button;
+  background-color: transparent;
+  background-image: url("../img/close-black.svg");
+  background-position: center;
+  background-size: cover;
+  border: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s linear;
+}
+
+.contact-popup div .contact-close-button:hover {
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+.contact-popup div .contact-close-button:focus {
+  outline: none;
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+.contact-popup object {
+  grid-area: illustration;
+  width: 10vw;
+  height: 10vw;
+}
+
+.contact-popup .contact-popup-message {
+  grid-area: text;
+  margin: 10px 10px 10px;
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  margin: -50px -50px -50px -50px;
+  animation-name: loading-spin;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,24 @@
+/*Animation that runs when a subpage is changed*/
+.container-fadeout {
+    animation-name:container-fadeout;
+    animation-duration:0.5s;
+    animation-iteration-count:1;
+}
+@keyframes container-fadeout {
+    100% {
+        opacity:0;
+    }
+}
+.container-fadein {
+    animation-name:container-fadein;
+    animation-duration: 1s;
+    animation-iteration-count:1;
+}
+@keyframes container-fadein {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}

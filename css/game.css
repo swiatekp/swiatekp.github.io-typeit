@@ -1,0 +1,108 @@
+.game, .result {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game h2, .game h3, .result h2, .result h3 {
+  width: 80%;
+  text-align: center;
+}
+
+.game h2, .result h2 {
+  font-size: 1.3rem;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game h3, .result h3 {
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.game p, .result p {
+  width: 80%;
+  text-align: justify;
+  padding: 0 20px 0 20px;
+}
+
+.game p, .result p {
+  margin: 25px 0 6px 0;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-symbols {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 10px 20px 10px;
+}
+
+.result-symbols object {
+  width: 60px;
+}
+
+@media (min-width: 450px) {
+  .result-symbols object {
+    width: 100px;
+  }
+}
+
+.result-cup {
+  width: 40px;
+  margin: 0 10px 0 0;
+}
+
+.steering {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.steering button {
+  width: 100px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9E9797;
+  border: 0;
+  border-radius: 30px;
+}
+
+.steering button:focus {
+  outline: 0;
+}
+
+.steering .active {
+  background-color: #0DACDF;
+  transition: background-color 0.2s linear;
+  transition: transform 0.2 linear;
+}
+
+.steering .active:focus {
+  background-color: #057397;
+}
+
+.steering .active:hover {
+  background-color: #057397;
+  transform: scale(1.1, 1);
+}
+
+.steering object {
+  width: 40px;
+  height: 40px;
+}
