@@ -90,6 +90,7 @@ Router.prototype.readHTML=function(firstTimeAfterReload) {
         else {
             this.target.classList.add("container-fadein");
             this.target.innerHTML = this.resp;
+            document.dispatchEvent(new Event("routercontentloaded")); //Let the other scripts know, that the content is loaded
             this.target.offsetHeight = this.target.offsetHeight; //force the browser to reflow
             this.fadeinBinded = this.fadein.bind(this);
             this.target.addEventListener("animationend", this.fadeinBinded);
