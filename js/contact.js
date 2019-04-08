@@ -187,9 +187,6 @@ FormValidator.prototype.fadeOutAnimationEnd = function() {
 }
 FormValidator.prototype.removePopup = function(e) {
     e.stopPropagation();
-    console.log(e.type);
-    console.log(e.type==="keydown" && e.key === "Escape");
-    console.log(e.key);
     if(e.type === "click" || (e.type==="keydown" && e.key === "Escape")) {
         this.popupMessage.removeEventListener("click", this.removePopupBinded);
         document.removeEventListener("keydown", this.removePopupBinded);
