@@ -209,3 +209,4 @@ document.addEventListener("routercontentloaded", ()=> {
         new FormValidator(mailjsConf, formRef, honeypotRef, nameRef, subjectRef, emailRef, contentRef);
     }
 });
+//DODAĆ ZAMYKANIE POPUPA PRZYCISKIEM ESC
