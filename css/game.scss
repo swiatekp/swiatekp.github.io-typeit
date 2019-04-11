@@ -1,10 +1,35 @@
 $grey-text:#9E9797;
 $blue: #0DACDF;
 $blue-onfocus: rgb(5, 115, 151);
+$red: #e23c3c;
 @mixin flexible() {
     display:flex;
     justify-content:center;
     align-items:center;
+}
+.game {
+    font-family: 'Source Code Pro', monospace;
+}
+.quasi-text-cursor {
+    display:inline-block;
+    width:10px;
+    height:20px;
+    background-color:$grey-text;
+    animation-name:cursor-blink;
+    animation-duration:0.8s;
+    animation-iteration-count:infinite;
+    margin-bottom: -2px;
+}
+@keyframes cursor-blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
 }
 .game, .result {
     width:100%;
@@ -12,6 +37,26 @@ $blue-onfocus: rgb(5, 115, 151);
     @include flexible();
     flex-direction:column;
     align-items:center;
+    .gamestart-prompt {
+        font-family:'Open Sans';
+        animation-name:prompt;
+        animation-duration: 1.5s;
+        animation-iteration-count:infinite;
+    }
+    @keyframes prompt {
+        0% {
+            opacity:1
+        }
+        15% {
+            opacity:0;
+        }
+        60% {
+            opacity:1;
+        }
+        100% {
+            opacity:1;
+        }
+    }
     h2, h3 {
         width:80%;
         text-align:center;
@@ -27,13 +72,24 @@ $blue-onfocus: rgb(5, 115, 151);
         font-weight:normal;
         font-size: 0.9rem;
     }
-    p {
-        width:80%;
+    .line-text, .quasi-input {
+        width:90%;
+        height:25px;
         text-align:justify;
+        vertical-align:middle;
         padding:0 20px 0 20px;
+        margin: 0 0 0 0;
+
     }
-    p {
-        margin:25px 0 6px 0;
+    .line {
+        width:100%;
+        margin: 10px 0 0 0;
+    }
+    .line-hidden {
+        display:none;
+    }
+    .typing-error {
+        background-color: $red;
     }
 }
 .result {

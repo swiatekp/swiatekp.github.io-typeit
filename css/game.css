@@ -1,3 +1,30 @@
+.game {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.quasi-text-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  background-color: #9E9797;
+  animation-name: cursor-blink;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  margin-bottom: -2px;
+}
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .game, .result {
   width: 100%;
   height: auto;
@@ -6,6 +33,28 @@
   align-items: center;
   flex-direction: column;
   align-items: center;
+}
+
+.game .gamestart-prompt, .result .gamestart-prompt {
+  font-family: 'Open Sans';
+  animation-name: prompt;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes prompt {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .game h2, .game h3, .result h2, .result h3 {
@@ -26,14 +75,26 @@
   font-size: 0.9rem;
 }
 
-.game p, .result p {
-  width: 80%;
+.game .line-text, .game .quasi-input, .result .line-text, .result .quasi-input {
+  width: 90%;
+  height: 25px;
   text-align: justify;
+  vertical-align: middle;
   padding: 0 20px 0 20px;
+  margin: 0 0 0 0;
 }
 
-.game p, .result p {
-  margin: 25px 0 6px 0;
+.game .line, .result .line {
+  width: 100%;
+  margin: 10px 0 0 0;
+}
+
+.game .line-hidden, .result .line-hidden {
+  display: none;
+}
+
+.game .typing-error, .result .typing-error {
+  background-color: #e23c3c;
 }
 
 .result {
