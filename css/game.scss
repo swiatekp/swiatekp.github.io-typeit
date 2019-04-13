@@ -2,6 +2,7 @@ $grey-text:#9E9797;
 $blue: #0DACDF;
 $blue-onfocus: rgb(5, 115, 151);
 $red: #e23c3c;
+$quasi-input-active: #f5ecec;
 @mixin flexible() {
     display:flex;
     justify-content:center;
@@ -14,7 +15,7 @@ $red: #e23c3c;
     display:inline-block;
     width:10px;
     height:20px;
-    background-color:$grey-text;
+    background-color:$blue;
     animation-name:cursor-blink;
     animation-duration:0.8s;
     animation-iteration-count:infinite;
@@ -33,9 +34,10 @@ $red: #e23c3c;
 }
 .game, .result {
     width:100%;
-    height:auto;
+    height:100%;
     @include flexible();
     flex-direction:column;
+    justify-content:space-between;
     align-items:center;
     .gamestart-prompt {
         font-family:'Open Sans';
@@ -73,23 +75,32 @@ $red: #e23c3c;
         font-size: 0.9rem;
     }
     .line-text, .quasi-input {
-        width:90%;
-        height:25px;
+        width:100%;
         text-align:justify;
         vertical-align:middle;
         padding:0 20px 0 20px;
         margin: 0 0 0 0;
-
+        margin-block-start:0;
+        margin-block-end:0;
+    }
+    .quasi-input {
+        color:$blue;
+        width:auto;
+    }
+    .quasi-input-active {
+        background-color: $quasi-input-active; 
     }
     .line {
         width:100%;
         margin: 10px 0 0 0;
+        justify-self:start;
     }
     .line-hidden {
         display:none;
     }
     .typing-error {
         background-color: $red;
+        color:#ffffff;
     }
 }
 .result {

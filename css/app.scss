@@ -126,8 +126,8 @@ main {
     flex-grow:3;
 }
 .container-1 {
-    background-color:$white-pure;
     align-self:stretch;
+    background-color:$white-pure;
     min-width:470px;
     width:48%;
     font-size:0.9rem;
@@ -149,6 +149,13 @@ main {
         margin: 20px 0 20px 0;
         text-align:justify;
         width:100%;
+    }
+    ul {
+        padding-left:20px;
+        width:100%;
+    }
+    li {
+        text-align:justify;
     }
     input {
         width:80%;

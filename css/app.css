@@ -145,8 +145,8 @@ main {
 }
 
 .container-1 {
-  background-color: #FFFFFF;
   align-self: stretch;
+  background-color: #FFFFFF;
   min-width: 470px;
   width: 48%;
   font-size: 0.9rem;
@@ -178,6 +178,15 @@ main {
   margin: 20px 0 20px 0;
   text-align: justify;
   width: 100%;
+}
+
+.container-1 ul {
+  padding-left: 20px;
+  width: 100%;
+}
+
+.container-1 li {
+  text-align: justify;
 }
 
 .container-1 input {

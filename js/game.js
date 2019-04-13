@@ -1,3 +1,6 @@
+// UWAGA
+// Dodawać klasę quasi-input active do aktywnego quasi inputu!!
+// KONIEC UWAGI ELO
 function Game(gameContainer, resultsContainer, texts) {
     //First parameter - a reference to the container for the game
     //Second parameter - a reference to the container for results, steering etc
@@ -39,9 +42,9 @@ Game.prototype.newGame = function() {
 
     this.text.forEach(el => {
         this.numberOfCharsInText+=el.length; 
-        let elSplitted = el.split(/^[ -]{1, 3}$/); //Separate words from text
+        let elSplitted = el.split(" "); //Separate words from text
+        this.numberOfWordsInText += elSplitted.length;
         console.log(elSplitted);
-        this.numberOfWordsInText += elSplitted.length; /////!!ŻLE LICZY SŁOWA
     });
     console.log(this.numberOfCharsInText);
     console.log(this.numberOfWordsInText);
@@ -53,6 +56,12 @@ Game.prototype.createTextEditor =  function() {
     
     this.gameDiv = document.createElement("div"); //container
     this.gameDiv.classList.add("game");
+    this.gameDiv.innerHTML = `
+        <h2>
+            <object class ="result-cup" type ="image/svg+xml" data ="img/game.svg">
+            </object>
+            Gra
+        </h2>`;
     this.documentFragment.appendChild(this.gameDiv);
 
     this.promptH3 = document.createElement("h3"); //The prompt, that encourages to start typing
@@ -79,6 +88,7 @@ Game.prototype.createTextEditor =  function() {
 
         this.quasiInputs[count] = document.createElement("p");
         this.quasiInputs[count].classList.add("quasi-input");
+        this.quasiInputs[count].classList.add("quasi-input-active");
         this.quasiInputs[count].charsTyped = []; //an array of references to the <span> elements that include the input letters
         this.lineDivs[count].appendChild(this.quasiInputs[count]);
 
@@ -108,8 +118,11 @@ Game.prototype.keydownHandler = function(e) {
         if(this.quasiInputs[this.currentLine].charsTyped.length === this.text[this.currentLine].length) {
             //If the input length === the line length, go to the another line
             if(this.currentLine<this.text.length-1) {
+                this.quasiInputs[this.currentLine].classList.remove("quasi-input-active");
                 this.currentLine++;
+                this.quasiInputs[this.currentLine].classList.add("quasi-input-active");
                 this.updateCursorPosition();
+
                 if(this.currentLine>=5) {
                     this.lineDivs[this.currentLine-5].classList.add("line-hidden"); 
                     this.lineDivs[this.currentLine].classList.remove("line-hidden");
@@ -134,7 +147,9 @@ Game.prototype.keydownHandler = function(e) {
         else {
             //If the input is empty, return to the previous line, unless it's the first line
             if(this.currentLine>0) {
+                this.quasiInputs[this.currentLine].classList.remove("quasi-input-active")
                 this.currentLine--;
+                this.quasiInputs[this.currentLine].classList.add("quasi-input-active");
                 this.updateCursorPosition();
 
                 //The lines rewind when you return to a hidden line
@@ -169,6 +184,7 @@ Game.prototype.gameOver = function() {
     this.isGameStarted = false;
     document.removeEventListener("keydown", this.keydownHandlerBinded);
     this.quasiTextCursor.remove();
+    this.quasiInputs[this.currentLine].classList.remove("quasi-input-active");
 
     this.minutes = (this.timeFinished-this.timeStarted)/60000;
     this.seconds = Math.floor(((this.timeFinished-this.timeStarted)%60000)/1000);
@@ -193,13 +209,14 @@ Game.prototype.gameOver = function() {
     Czas: ${this.minutes}:${this.seconds}.${this.thousandsOfASecond}, 
     ${this.charsPerMinute} znaków na minutę,
     ${this.wordsPerMinute} słów na minutę
+    Błędów: ${this.errorsCount} 
     `);
 }
 document.addEventListener("routercontentloaded", ()=>{
     if(window.location.hash==="#game") {
         const g = document.querySelector(".game-container");
         const r = document.querySelector(".result-container");
-        const texts = "js/texts.json";
+        const texts = "js/texts-backup.json";
         new Game(g, r, texts);
     }
 });

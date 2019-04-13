@@ -6,7 +6,7 @@
   display: inline-block;
   width: 10px;
   height: 20px;
-  background-color: #9E9797;
+  background-color: #0DACDF;
   animation-name: cursor-blink;
   animation-duration: 0.8s;
   animation-iteration-count: infinite;
@@ -27,11 +27,12 @@
 
 .game, .result {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -76,17 +77,28 @@
 }
 
 .game .line-text, .game .quasi-input, .result .line-text, .result .quasi-input {
-  width: 90%;
-  height: 25px;
+  width: 100%;
   text-align: justify;
   vertical-align: middle;
   padding: 0 20px 0 20px;
   margin: 0 0 0 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.game .quasi-input, .result .quasi-input {
+  color: #0DACDF;
+  width: auto;
+}
+
+.game .quasi-input-active, .result .quasi-input-active {
+  background-color: #f5ecec;
 }
 
 .game .line, .result .line {
   width: 100%;
   margin: 10px 0 0 0;
+  justify-self: start;
 }
 
 .game .line-hidden, .result .line-hidden {
@@ -95,6 +107,7 @@
 
 .game .typing-error, .result .typing-error {
   background-color: #e23c3c;
+  color: #ffffff;
 }
 
 .result {
