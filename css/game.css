@@ -1,3 +1,11 @@
+.hidden {
+  display: none !important;
+}
+
+.game-container, .result-container {
+  justify-content: flex-start;
+}
+
 .game {
   font-family: 'Source Code Pro', monospace;
 }
@@ -25,18 +33,23 @@
   }
 }
 
-.game, .result {
+.game-info {
+  height: 80%;
+  margin: 20px 0 0 0;
+}
+
+.game, .result, .game-info {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.game .gamestart-prompt, .result .gamestart-prompt {
+.game .gamestart-prompt, .result .gamestart-prompt, .game-info .gamestart-prompt {
   font-family: 'Open Sans';
   animation-name: prompt;
   animation-duration: 1.5s;
@@ -58,25 +71,7 @@
   }
 }
 
-.game h2, .game h3, .result h2, .result h3 {
-  width: 80%;
-  text-align: center;
-}
-
-.game h2, .result h2 {
-  font-size: 1.3rem;
-  font-weight: normal;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.game h3, .result h3 {
-  font-weight: normal;
-  font-size: 0.9rem;
-}
-
-.game .line-text, .game .quasi-input, .result .line-text, .result .quasi-input {
+.game .line-text, .game .quasi-input, .result .line-text, .result .quasi-input, .game-info .line-text, .game-info .quasi-input {
   width: 100%;
   text-align: justify;
   vertical-align: middle;
@@ -86,28 +81,68 @@
   margin-block-end: 0;
 }
 
-.game .quasi-input, .result .quasi-input {
+.game .quasi-input, .result .quasi-input, .game-info .quasi-input {
   color: #0DACDF;
   width: auto;
 }
 
-.game .quasi-input-active, .result .quasi-input-active {
+.game .quasi-input-active, .result .quasi-input-active, .game-info .quasi-input-active {
   background-color: #f5ecec;
 }
 
-.game .line, .result .line {
+.game .line, .result .line, .game-info .line {
   width: 100%;
   margin: 10px 0 0 0;
-  justify-self: start;
+  justify-self: center;
 }
 
-.game .line-hidden, .result .line-hidden {
+.game .line-hidden, .result .line-hidden, .game-info .line-hidden {
   display: none;
 }
 
-.game .typing-error, .result .typing-error {
+.game .typing-error, .result .typing-error, .game-info .typing-error {
   background-color: #e23c3c;
   color: #ffffff;
+}
+
+.game-header {
+  font-size: 1.3rem;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
+.gamestart-prompt {
+  width: 100%;
+  height: 10%;
+  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  font-family: 'Open Sans';
+  animation-name: prompt;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes prompt {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .result {

@@ -10,7 +10,20 @@ function Game(gameContainer, resultsContainer, texts) {
         //One line of text - one array element
     
     this.gameContainer = gameContainer;
-    this.resultsContainer = resultsContainer;    
+    this.resultsContainer = resultsContainer;
+    this.gameInfoHeader = this.resultsContainer.querySelector(".info-header");
+    this.gameInfo = this.resultsContainer.querySelector('.game-info');
+    this.resultHeader = this.resultsContainer.querySelector(".result-header");
+    this.result = this.resultsContainer.querySelector(".result");
+    this.resultSpeedContainer = this.result.querySelector(".speed-string");
+    this.resultCommentContainer = this.result.querySelector(".speed-comment");
+    
+    //grade - images
+    this.gradeImages = [];
+    this.gradeImages.push(this.resultsContainer.querySelector(".grade-1"));
+    this.gradeImages.push(this.resultsContainer.querySelector(".grade-2"));
+    this.gradeImages.push(this.resultsContainer.querySelector(".grade-3"));
+    this.gradeImages.push(this.resultsContainer.querySelector(".grade-4"));
 
     fetch(texts) //fetch the text
     .then(resp => resp.json())
@@ -44,10 +57,13 @@ Game.prototype.newGame = function() {
         this.numberOfCharsInText+=el.length; 
         let elSplitted = el.split(" "); //Separate words from text
         this.numberOfWordsInText += elSplitted.length;
-        console.log(elSplitted);
     });
-    console.log(this.numberOfCharsInText);
-    console.log(this.numberOfWordsInText);
+
+    //Hide the results and show the info
+    this.gameInfoHeader.classList.remove("hidden");
+    this.gameInfo.classList.remove("hidden");
+    this.resultHeader.classList.add("hidden");
+    this.result.classList.add("hidden");
 }
 Game.prototype.createTextEditor =  function() {
     //add everything that is now in game.html
@@ -56,18 +72,12 @@ Game.prototype.createTextEditor =  function() {
     
     this.gameDiv = document.createElement("div"); //container
     this.gameDiv.classList.add("game");
-    this.gameDiv.innerHTML = `
-        <h2>
-            <object class ="result-cup" type ="image/svg+xml" data ="img/game.svg">
-            </object>
-            Gra
-        </h2>`;
     this.documentFragment.appendChild(this.gameDiv);
 
     this.promptH3 = document.createElement("h3"); //The prompt, that encourages to start typing
     this.promptH3.classList.add("gamestart-prompt");
     this.promptH3.innerText = "Zacznij pisać, gdy będziesz gotów";
-    this.gameDiv.appendChild(this.promptH3);
+    this.gameContainer.appendChild(this.promptH3);
 
     this.lineDivs = []; //array of references to the lines
     this.quasiInputs = []; //array of references to the quasi-inputs
@@ -211,6 +221,42 @@ Game.prototype.gameOver = function() {
     ${this.wordsPerMinute} słów na minutę
     Błędów: ${this.errorsCount} 
     `);
+    //Display the results 
+    this.gameInfoHeader.classList.add("hidden");
+    this.gameInfo.classList.add("hidden");
+    
+    if(this.charsPerMinute <= 50) {
+        this.grade = 0;
+        this.comment = "Niestety, jesteś bardzo wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
+    }
+    else if(this.charsPerMinute>50 && this.charsPerMinute<=170) {
+        this.grade = 1;
+        this.comment = "Niestety, jesteś wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
+    }
+    else if(this.charsPerMinute>170 && this.charsPerMinute<=250) {
+        this.grade = 2;
+        this.comment = "Gratulacje, jesteś szybki! Osiągnij mistrzowski poziom poprzez regularne korzystanie z TypeIt!."
+    }
+    else if(this.charsPerMinute>250) {
+        this.grade = 3;
+        this.comment = "Gratulacje, jesteś bardzo szybki!";
+    }
+    
+    //Change the image color 
+    this.gradeImages[this.grade].data = `img/speed-${this.grade+1}-blue.svg`;
+
+    this.resultSpeedContainer.innerText = 
+        `
+        Twój czas to: ${this.minutes} m ${this.seconds} s ${this.thousandsOfASecond} ms. 
+        Twoja prędkość to: ${this.charsPerMinute} znaków na minutę, ${this.wordsPerMinute} słów na minutę.
+        Popełniłeś ${this.errorsCount} błędów.
+        `;
+
+    this.resultCommentContainer.innerText = this.comment;
+    this.resultHeader.classList.remove("hidden");
+    this.result.classList.remove("hidden");
+
+
 }
 document.addEventListener("routercontentloaded", ()=>{
     if(window.location.hash==="#game") {
