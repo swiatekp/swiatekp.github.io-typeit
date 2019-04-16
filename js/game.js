@@ -38,7 +38,10 @@ function Game(gameContainer, resultsContainer, texts) {
         this.texts = resp;
         this.newGame();
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+        console.error(error)
+        this.gameContainer.innerHTML+="Błąd ładowania pliku z tekstami";
+    });
 }
 Game.prototype.newGame = function() {
     //Random text from json
