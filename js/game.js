@@ -26,11 +26,19 @@ function Game(gameContainer, resultsContainer, texts) {
     this.gradeImages.push(this.resultsContainer.querySelector(".grade-4"));
 
     fetch(texts) //fetch the text
-    .then(resp => resp.json())
+    .then(resp => {
+        if(resp.ok) {
+            return resp.json();
+        }
+        else {
+            throw new Error("Błąd przy pobieraniu tekstu do gry");
+        }
+    })
     .then(resp=> {
         this.texts = resp;
         this.newGame();
-    });
+    })
+    .catch(error => console.error(error));
 }
 Game.prototype.newGame = function() {
     //Random text from json
@@ -110,13 +118,13 @@ Game.prototype.createTextEditor =  function() {
     this.gameContainer.appendChild(this.documentFragment);
 }
 Game.prototype.keydownHandler = function(e) {
-    e.preventDefault();
     if(this.isGameStarted === false) {
         this.startGame();
     }
     this.allowedKeysRegex = /^[a-z0-9ęóąśłżźćń\ ~!@#$%\^&\*()-\_\+\=\[\]\:;"'\|\\<,>\.\?\/]$/i
     //The regex must allow all typable chars - let the player make a mistake
     if(this.allowedKeysRegex.test(e.key)) {
+        e.preventDefault();
         this.quasiInputs[this.currentLine].charsTyped.push(document.createElement("span"));
         let currentChar = this.quasiInputs[this.currentLine].charsTyped[this.quasiInputs[this.currentLine].charsTyped.length-1];
         currentChar.innerText = e.key;
@@ -141,10 +149,6 @@ Game.prototype.keydownHandler = function(e) {
                 }
             }
             else {
-                //////////////////////////////
-                /////GAME OVER////////////////
-                //////////////////////////////
-                console.log("Game over");
                 this.gameOver();
             }
         }
@@ -215,13 +219,6 @@ Game.prototype.gameOver = function() {
     this.wordsPerMinute = Math.round(this.numberOfWordsInText/this.minutes);
     this.minutes = Math.floor(this.minutes);
 
-    console.log(`
-    ${this.gameFinished}, ${this.gameStarted}
-    Czas: ${this.minutes}:${this.seconds}.${this.thousandsOfASecond}, 
-    ${this.charsPerMinute} znaków na minutę,
-    ${this.wordsPerMinute} słów na minutę
-    Błędów: ${this.errorsCount} 
-    `);
     //Display the results 
     this.gameInfoHeader.classList.add("hidden");
     this.gameInfo.classList.add("hidden");
