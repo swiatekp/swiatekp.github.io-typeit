@@ -173,6 +173,10 @@ main {
             outline:none;
             background-color:$blue-onfocus;
         }
+        &::placeholder {
+            color:$white-pure;
+            opacity:1;
+        }
     }
 }           
 .container-1:first-child {

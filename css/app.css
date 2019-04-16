@@ -208,6 +208,11 @@ main {
   background-color: #057397;
 }
 
+.container-1 input::placeholder {
+  color: #FFFFFF;
+  opacity: 1;
+}
+
 .container-1:first-child {
   margin: 0 0 40px 0;
 }
