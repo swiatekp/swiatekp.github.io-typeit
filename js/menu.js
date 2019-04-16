@@ -11,7 +11,7 @@ function Menu(menu, buttonShow, buttonHide) {
 
     //buttons "show" and "hide" trigger functions that show or hide the menu
     this.buttonShow.addEventListener("click", this.show.bind(this));
-    this.buttonHide.addEventListener("click", this.hide.bind(this))
+    this.buttonHide.addEventListener("click", this.hide.bind(this));
 }
 Menu.prototype.show = function() {
     this.menu.classList.remove("menu-hidden"); //showing the menu
@@ -24,6 +24,8 @@ Menu.prototype.show = function() {
     //By clicking anywhere outside the menu user hides the menu
     this.bindedClickOutsideMenu = this.clickOutsideMenu.bind(this); //The bind must be assigned to a const, because event remover won't work with it written directly
     document.addEventListener("click", this.bindedClickOutsideMenu, true);
+    this.hideBinded = this.hide.bind(this);
+    document.addEventListener("routercontentloaded", this.hideBinded); //menu hides if the subpage is switched
 }
 Menu.prototype.removeShowAnimation = function() {
     //An auxilliary method used in method show - could't do an arrow function because the event listener should be removed
@@ -38,6 +40,7 @@ Menu.prototype.hide = function() {
     this.removeHideAnimationBinded = this.removeHideAnimation.bind(this); //event listener should be removed afterwards, and it won't work with bind written directly
     this.menu.addEventListener("animationend", this.removeHideAnimationBinded);
     document.removeEventListener("click", this.bindedClickOutsideMenu, true); //Remove the event listener that closes the menu after clicking anywhere
+    document.removeEventListener("routercontentloaded", this.hideBinded);
 }
 Menu.prototype.removeHideAnimation= function() {
     this.buttonShow.classList.remove("button-hidden"); //show hamburger button
@@ -57,5 +60,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const bS = document.querySelector(".hamburger-btn");
     const bH = document.querySelector(".close-button");
 
-    new Menu(m, bS, bH);
+    const menu = new Menu(m, bS, bH);
 });
