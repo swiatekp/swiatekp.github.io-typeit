@@ -36,6 +36,11 @@
   }
 }
 
+.contact-row a {
+  display: flex;
+  align-items: center;
+}
+
 .contact-row span {
   margin: 0 0 0 25px;
 }
