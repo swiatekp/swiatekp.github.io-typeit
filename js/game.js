@@ -110,6 +110,7 @@ Game.prototype.createTextEditor =  function() {
     this.gameContainer.appendChild(this.documentFragment);
 }
 Game.prototype.keydownHandler = function(e) {
+    e.preventDefault();
     if(this.isGameStarted === false) {
         this.startGame();
     }
