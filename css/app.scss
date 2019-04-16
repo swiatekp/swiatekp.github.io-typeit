@@ -108,19 +108,24 @@ main {
     @media(min-width:550px) {
         padding:5vw 3vw 5vw 3vw;
         justify-content:space-between;
+        flex-direction:row;
     }
     background-color:$white-main;
+    
+
     border-top: 4px solid $grey-main-border;
     border-bottom: 4px solid $grey-main-border;
+    
     font-size: 14px;
     @media(min-width:760px) {
         font-size:20px;
     }
-    @media(min-width:550px) {
-        flex-direction:row;
+    @media(max-width:550px) {
+        padding-left:0;
+        padding-right:0;
+        justify-content:stretch;
     }
     @include flexible();
-    justify-content:space-around;
     flex-direction:column;
     flex-wrap:wrap;
     flex-grow:3;
@@ -135,6 +140,9 @@ main {
         width:100%;
         font-size: 1.1rem;
     }
+    @media(max-width:550px) {
+        border-radius:0;
+    }
     @media(max-width:552px) {
         font-size: 0.8rem;
         min-width:300px;
@@ -144,7 +152,7 @@ main {
     justify-content:center;
     flex-direction:column;
     border-radius:6px;
-    padding: 2vw 3vw 2vw 3vw;
+    padding: 40px 20px 40px 20px;
     p {
         margin: 20px 0 20px 0;
         text-align:justify;
@@ -180,9 +188,12 @@ main {
     }
 }           
 .container-1:first-child {
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
     @media(min-width:1041px) {
         margin: 0 4% 0 0;
+    }
+    @media(max-width:550px) {
+        margin:0;
     }
 }
 .btn-start, .contact-button {
