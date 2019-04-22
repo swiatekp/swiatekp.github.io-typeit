@@ -1,6 +1,3 @@
-// UWAGA
-// Dodawać klasę quasi-input active do aktywnego quasi inputu!!
-// KONIEC UWAGI ELO
 function Game(gameContainer, resultsContainer, texts) {
     //First parameter - a reference to the container for the game
     //Second parameter - a reference to the container for results, steering etc
