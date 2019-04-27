@@ -26,6 +26,12 @@
         </p>
         <p class = "speed-comment">
         </p>
+        <button type ="button" class ="restart btn-start">
+            <span>
+                Od nowa 
+            </span>
+            <object type="image/svg+xml" data ="img/restart.svg"></object>
+        </button>
     </div>
     <h2 class = "game-header info-header">
         <object class ="result-cup" type ="image/svg+xml" data ="img/info.svg">
@@ -41,9 +47,31 @@
                 Aby otrzymać najlepszy możliwy rezultat, zaleca się znalezienie optymalnego
                 tempa pisania. Nadmierny pośpiech może spowodować zwiększenie liczby
                 literówek. Ich poprawianie, w grucie rzeczy przedłuży czas pisania.
+                Dopuszczalna liczba literówek to 50. Po jej przekroczeniu, gra zostanie zakończona.
             </p>
             <p>
-                Sprawdź, jak szybki jesteś, razem z TypeIt!;
+                Sprawdź, jak szybki jesteś, razem z TypeIt!
             </p>
+            <button type ="button" class ="restart btn-start info hidden">
+                <span>
+                    Od nowa 
+                </span>
+                <object type="image/svg+xml" data ="img/restart.svg"></object>
+            </button>
+    </div>
+    <div class = "game-not-passed hidden">
+        <object type="image/svg+xml" data ="img/not-passed.svg">
+        </object>
+        <p>
+            Niestety, gra nie została zaliczona. Przekroczono dopuszczalny limit literówek.
+        </p>
+        <div>
+            <button type ="button" class ="restart btn-start">
+                <span>
+                    Od nowa 
+                </span>
+                <object type="image/svg+xml" data ="img/restart.svg"></object>
+            </button>
+        </div>
     </div>
 </div>

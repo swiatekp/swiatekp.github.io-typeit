@@ -14,7 +14,16 @@ function Game(gameContainer, resultsContainer, texts) {
     this.result = this.resultsContainer.querySelector(".result");
     this.resultSpeedContainer = this.result.querySelector(".speed-string");
     this.resultCommentContainer = this.result.querySelector(".speed-comment");
-    
+    this.gameNotPassed = this.resultsContainer.querySelector(".game-not-passed");
+    this.restartButtons = this.resultsContainer.querySelectorAll(".restart");
+    this.restartButtons.forEach(el => {
+        el.addEventListener("click", ()=>{
+            window.location.reload();
+        });
+        if(el.classList.contains("info")) {
+            this.infoRestartButton = el;
+        }
+    });
     //grade - images
     this.gradeImages = [];
     this.gradeImages.push(this.resultsContainer.querySelector(".grade-1"));
@@ -72,6 +81,8 @@ Game.prototype.newGame = function() {
     this.gameInfo.classList.remove("hidden");
     this.resultHeader.classList.add("hidden");
     this.result.classList.add("hidden");
+    this.gameNotPassed.classList.add("hidden");
+    this.infoRestartButton.classList.add("hidden");
 }
 Game.prototype.createTextEditor =  function() {
     //add everything that is now in game.html
@@ -175,11 +186,16 @@ Game.prototype.keydownHandler = function(e) {
             }
         }
     }
+    //End the game if errors limit is exceeded
+    if(this.errorsCount>50) {
+        this.gameOver();
+    }
 }
 Game.prototype.startGame = function() {
     this.isGameStarted = true;
     this.timeStarted = Date.now();
     this.promptH3.remove();
+    this.infoRestartButton.classList.remove("hidden");
 }
 Game.prototype.validateChar = function(char) {
     if(this.text[this.currentLine].charAt(this.quasiInputs[this.currentLine].charsTyped.length-1) === char) {
@@ -195,72 +211,77 @@ Game.prototype.updateCursorPosition = function() {
     this.quasiInputs[this.currentLine].appendChild(this.quasiTextCursor) //Append the cursor to the next line
 }
 Game.prototype.gameOver = function() {
-    this.timeFinished = Date.now();
     this.isGameStarted = false;
     document.removeEventListener("keydown", this.keydownHandlerBinded);
     this.quasiTextCursor.remove();
     this.quasiInputs[this.currentLine].classList.remove("quasi-input-active");
-
-    this.minutes = (this.timeFinished-this.timeStarted)/60000;
-    this.seconds = Math.floor(((this.timeFinished-this.timeStarted)%60000)/1000);
     
-    //Add the leading zeros
-    if(this.seconds<10) {
-        this.seconds = `0${this.seconds}`;
-    }
-    this.thousandsOfASecond = Math.floor((this.timeFinished-this.timeStarted)%60000%1000);
-    if(this.thousandsOfASecond < 10) {
-        this.thousandsOfASecond = `00${this.thousandsOfASecond}`;
-    }
-    if(this.thousandsOfASecond>=10 && this.thousandsOfASecond<100) {
-        this.thousandsOfASecond = `0${this.thousandsOfASecond}`;
-    }
-    this.charsPerMinute = Math.round(this.numberOfCharsInText/this.minutes);
-    this.wordsPerMinute = Math.round(this.numberOfWordsInText/this.minutes);
-    this.minutes = Math.floor(this.minutes);
-
-    //Display the results 
+    //Hide the game info
     this.gameInfoHeader.classList.add("hidden");
     this.gameInfo.classList.add("hidden");
-    
-    if(this.charsPerMinute <= 50) {
-        this.grade = 0;
-        this.comment = "Niestety, jesteś bardzo wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
-    }
-    else if(this.charsPerMinute>50 && this.charsPerMinute<=170) {
-        this.grade = 1;
-        this.comment = "Niestety, jesteś wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
-    }
-    else if(this.charsPerMinute>170 && this.charsPerMinute<=250) {
-        this.grade = 2;
-        this.comment = "Gratulacje, jesteś szybki! Osiągnij mistrzowski poziom poprzez regularne korzystanie z TypeIt!."
-    }
-    else if(this.charsPerMinute>250) {
-        this.grade = 3;
-        this.comment = "Gratulacje, jesteś bardzo szybki!";
-    }
-    
-    //Change the image color 
-    this.gradeImages[this.grade].data = `img/speed-${this.grade+1}-blue.svg`;
 
-    this.resultSpeedContainer.innerText = 
+    if(this.errorsCount<50) {
+        //Game is passed, when the player made less than 50 errors
+        this.timeFinished = Date.now();
+        this.minutes = (this.timeFinished-this.timeStarted)/60000;
+        this.seconds = Math.floor(((this.timeFinished-this.timeStarted)%60000)/1000);
+    
+        //Add the leading zeros
+        if(this.seconds<10) {
+            this.seconds = `0${this.seconds}`;
+        }
+        this.thousandsOfASecond = Math.floor((this.timeFinished-this.timeStarted)%60000%1000);
+        if(this.thousandsOfASecond < 10) {
+            this.thousandsOfASecond = `00${this.thousandsOfASecond}`;
+        }
+        if(this.thousandsOfASecond>=10 && this.thousandsOfASecond<100) {
+            this.thousandsOfASecond = `0${this.thousandsOfASecond}`;
+        }
+        this.charsPerMinute = Math.round(this.numberOfCharsInText/this.minutes);
+        this.wordsPerMinute = Math.round(this.numberOfWordsInText/this.minutes);
+        this.minutes = Math.floor(this.minutes);
+
+        //Display the results 
+
+        if(this.charsPerMinute <= 50) {
+            this.grade = 0;
+            this.comment = "Niestety, jesteś bardzo wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
+        }
+        else if(this.charsPerMinute>50 && this.charsPerMinute<=170) {
+            this.grade = 1;
+            this.comment = "Niestety, jesteś wolny. Możesz poprawić się dzięki regularnemu korzystaniu z TypeIt!.";
+        }
+        else if(this.charsPerMinute>170 && this.charsPerMinute<=250) {
+            this.grade = 2;
+            this.comment = "Gratulacje, jesteś szybki! Osiągnij mistrzowski poziom poprzez regularne korzystanie z TypeIt!."
+        }
+        else if(this.charsPerMinute>250) {
+            this.grade = 3;
+            this.comment = "Gratulacje, jesteś bardzo szybki!";
+        }
+
+        //Change the image color 
+        this.gradeImages[this.grade].data = `img/speed-${this.grade+1}-blue.svg`;
+
+        this.resultSpeedContainer.innerText = 
         `
-        Twój czas to: ${this.minutes} m ${this.seconds} s ${this.thousandsOfASecond} ms. 
-        Twoja prędkość to: ${this.charsPerMinute} znaków na minutę, ${this.wordsPerMinute} słów na minutę.
-        Popełniłeś ${this.errorsCount} błędów.
+            Twój czas to: ${this.minutes} m ${this.seconds} s ${this.thousandsOfASecond} ms. 
+            Twoja prędkość to: ${this.charsPerMinute} znaków na minutę, ${this.wordsPerMinute} słów na minutę.
+            Popełniłeś ${this.errorsCount} błędów.
         `;
-
-    this.resultCommentContainer.innerText = this.comment;
-    this.resultHeader.classList.remove("hidden");
-    this.result.classList.remove("hidden");
-
-
+        this.resultCommentContainer.innerText = this.comment;
+        this.resultHeader.classList.remove("hidden");
+        this.result.classList.remove("hidden");
+    }
+    else {
+        this.gameNotPassed.classList.remove("hidden");
+    }
 }
 document.addEventListener("routercontentloaded", ()=>{
     if(window.location.hash==="#game") {
         const g = document.querySelector(".game-container");
         const r = document.querySelector(".result-container");
-        const texts = "js/texts-backup.json";
+        const texts = "js/texts.json";
         new Game(g, r, texts);
     }
 });

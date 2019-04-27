@@ -154,35 +154,24 @@ $quasi-input-active: #f5ecec;
     width:40px;
     margin:0 10px 0 0;
 }
-.steering {
-    width:80%;
-    @include flexible();
-    justify-content:space-around;
-    button {
-        width: 100px;
-        height: 65px;
-        @include flexible();
-        background-color:$grey-text;
-        border:0;
-        border-radius:30px;
-        &:focus {
-            outline:0;
-        }
+.game-not-passed {
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    div, p {
+        display:flex;
+        justify-content:center;
     }
-    .active {
-        background-color:$blue;
-        transition: background-color 0.2s linear;
-        transition: transform 0.2 linear;
-        &:focus {
-            background-color:$blue-onfocus;
-        }
-        &:hover {
-            background-color:$blue-onfocus;
-            transform:scale(1.1, 1);
-        }
+}
+.restart {
+    margin:0;
+    padding: 10px 0 10px 0;
+    width:250px !important;
+    height:70px !important;
+    font-size: 2rem;
+    span {
+        margin: 0 20px 0 0;
     }
-    object {
-        width:40px;
-        height:40px;
-    }
-}    
+}

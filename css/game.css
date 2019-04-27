@@ -173,45 +173,26 @@
   margin: 0 10px 0 0;
 }
 
-.steering {
-  width: 80%;
+.game-not-passed {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-not-passed div, .game-not-passed p {
   display: flex;
   justify-content: center;
-  align-items: center;
-  justify-content: space-around;
 }
 
-.steering button {
-  width: 100px;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #9E9797;
-  border: 0;
-  border-radius: 30px;
+.restart {
+  margin: 0;
+  padding: 10px 0 10px 0;
+  width: 250px !important;
+  height: 70px !important;
+  font-size: 2rem;
 }
 
-.steering button:focus {
-  outline: 0;
-}
-
-.steering .active {
-  background-color: #0DACDF;
-  transition: background-color 0.2s linear;
-  transition: transform 0.2 linear;
-}
-
-.steering .active:focus {
-  background-color: #057397;
-}
-
-.steering .active:hover {
-  background-color: #057397;
-  transform: scale(1.1, 1);
-}
-
-.steering object {
-  width: 40px;
-  height: 40px;
+.restart span {
+  margin: 0 20px 0 0;
 }
